@@ -1,0 +1,9 @@
+# VS Code — contains FTP credentials and local settings
+.vscode/
+
+# macOS
+.DS_Store
+
+# Logseq internals
+logseq/.recycle
+logseq/bak/
