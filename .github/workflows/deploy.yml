@@ -27,6 +27,8 @@ jobs:
           cp index.html ./output/
           cp style.css ./output/
           cp -r assets/ ./output/assets/
+          cp insta.png ./output/
+          cp result_146456.jpeg ./output/
           # When adding a build step, replace above with: cp -r dist/. ./output/
 
       - name: Deploy to gh-pages branch
