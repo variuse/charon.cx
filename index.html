@@ -20,7 +20,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400&family=JetBrains+Mono:wght@400;500&family=Noto+Serif:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Noto+Serif:ital,wght@0,400;0,500;1,400;1,500&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
     <script type="application/ld+json">
     {
@@ -44,33 +44,57 @@
     </script>
 
     <style>
+        /* --- Design tokens: "The Mythic Algorithm" --- */
         :root {
-            --bg-color: #050505;
-            --text-color: #e5e5e5;
-            --accent-color: #3b82f6;
-            --gold-color: #d4af37;
-            --gold-bright: #e9c349;
-            --code-color: #64ffda;
-            --dim-color: #888;
-            --deep-dim: #555;
+            --bg: #131313;
+            --surface-low: #1c1b1b;
+            --surface: #201f1f;
+            --surface-high: #2a2a2a;
+            --surface-highest: #353534;
+            --surface-variant: #353534;
+            --outline-variant: #424754;
+
+            --primary: #adc6ff;
+            --primary-container: #4d8eff;
+            --secondary: #e9c349;
+            --secondary-dim: #d4af37;
+            --on-secondary: #3c2f00;
+            --tertiary: #38debb;
+            --tertiary-dim: #2ab898;
+
+            --on-surface: #e5e2e1;
+            --on-surface-variant: #c2c6d6;
+            --dim: #8c909f;
+            --deep-dim: #424754;
+
             --column: 580px;
+
+            --font-display: 'Noto Serif', Georgia, serif;
+            --font-body: 'Inter', -apple-system, sans-serif;
+            --font-label: 'Space Grotesk', 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
         }
 
         * { box-sizing: border-box; }
 
         body {
-            background-color: var(--bg-color);
-            background-image: radial-gradient(circle at 50% 30%, #111 0%, #050505 70%);
-            color: var(--text-color);
-            font-family: 'Inter', -apple-system, sans-serif;
+            background-color: var(--bg);
+            background-image: radial-gradient(circle at 50% 25%, #1c1b1b 0%, #131313 70%);
+            color: var(--on-surface-variant);
+            font-family: var(--font-body);
+            font-weight: 300;
             margin: 0;
             padding: 0;
-            text-align: center;
             -webkit-font-smoothing: antialiased;
             position: relative;
         }
 
-        /* --- Fog (fixed so it persists across scroll) --- */
+        ::selection {
+            background: var(--secondary);
+            color: var(--on-secondary);
+        }
+
+        /* --- Fog (River Styx) --- */
         .fog-container {
             position: fixed;
             bottom: 0;
@@ -88,8 +112,8 @@
             left: 0;
             width: 200%;
             height: 100%;
-            background: linear-gradient(to top, rgba(20,20,20,0.8) 0%, transparent 100%);
-            opacity: 0.5;
+            background: linear-gradient(to top, rgba(28,27,27,0.85) 0%, transparent 100%);
+            opacity: 0.55;
             animation: drift 20s linear infinite;
             mask-image: linear-gradient(to right, transparent, black 50%, transparent);
         }
@@ -106,7 +130,7 @@
             100% { transform: translateX(-50%); }
         }
 
-        /* --- Single column: everything flows at the same width --- */
+        /* --- Column --- */
         .column {
             max-width: var(--column);
             margin: 0 auto;
@@ -115,12 +139,12 @@
             z-index: 10;
         }
 
-        /* --- HUD Profile with corner-bracket frame --- */
+        /* --- Profile frame (ghost brackets, no opaque borders) --- */
         .profile-frame {
             position: relative;
             width: 168px;
             height: 168px;
-            margin: 0 auto 2.75rem auto;
+            margin: 0 auto 3rem auto;
         }
 
         .profile-frame::before,
@@ -131,9 +155,9 @@
             position: absolute;
             width: 14px;
             height: 14px;
-            border-color: var(--gold-color);
-            opacity: 0.6;
-            transition: opacity 0.3s ease, border-color 0.3s ease;
+            border-color: var(--secondary);
+            opacity: 0.5;
+            transition: opacity 0.4s ease;
         }
 
         .profile-frame::before {
@@ -150,22 +174,21 @@
 
         .profile-frame .bracket-bl {
             bottom: 0; left: 0;
-            border-bottom: 1px solid var(--gold-color);
-            border-left: 1px solid var(--gold-color);
+            border-bottom: 1px solid var(--secondary);
+            border-left: 1px solid var(--secondary);
         }
 
         .profile-frame .bracket-br {
             bottom: 0; right: 0;
-            border-bottom: 1px solid var(--gold-color);
-            border-right: 1px solid var(--gold-color);
+            border-bottom: 1px solid var(--secondary);
+            border-right: 1px solid var(--secondary);
         }
 
         .profile-frame:hover::before,
         .profile-frame:hover::after,
         .profile-frame:hover .bracket-bl,
         .profile-frame:hover .bracket-br {
-            opacity: 1;
-            border-color: var(--gold-bright);
+            opacity: 0.9;
         }
 
         .profile-container {
@@ -177,9 +200,9 @@
             height: 140px;
             border-radius: 50%;
             overflow: hidden;
-            border: 1px solid #222;
-            transition: border-color 0.3s ease;
+            outline: 1px solid rgba(66, 71, 84, 0.25); /* ghost border */
             background: #000;
+            transition: outline-color 0.3s ease;
         }
 
         .profile-pic {
@@ -193,29 +216,28 @@
 
         .hud-overlay {
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.8);
+            inset: 0;
+            background: rgba(19, 19, 19, 0.85);
             display: flex;
-            flex-direction: column;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
             opacity: 0;
             transition: opacity 0.3s ease;
-            backdrop-filter: blur(2px);
+            backdrop-filter: blur(6px);
         }
 
         .hud-text {
-            font-family: 'JetBrains Mono', monospace;
+            font-family: var(--font-mono);
             font-size: 0.65rem;
-            color: var(--code-color);
+            color: var(--tertiary);
             text-align: left;
             line-height: 1.8;
-            letter-spacing: -0.5px;
+            letter-spacing: -0.3px;
         }
 
         .profile-container:hover {
-            border-color: var(--code-color);
-            box-shadow: 0 0 25px rgba(100, 255, 218, 0.1);
+            outline-color: rgba(56, 222, 187, 0.35);
+            box-shadow: 0 0 30px rgba(56, 222, 187, 0.08);
         }
 
         .profile-container:hover .profile-pic {
@@ -226,84 +248,103 @@
         .profile-container:hover .hud-overlay { opacity: 1; }
 
         /* --- Typography --- */
-        h1 {
-            font-family: 'Noto Serif', Georgia, serif;
-            font-weight: 400;
-            letter-spacing: 0.04em;
-            text-transform: lowercase;
-            margin: 0 0 2rem 0;
-            font-size: 2.4rem;
-            color: #fff;
-            opacity: 0.9;
+        .wordmark {
+            font-family: var(--font-label);
+            font-weight: 500;
+            font-size: 0.72rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--dim);
+            margin: 0 0 0.75rem 0;
         }
 
+        .wordmark .dot { color: var(--secondary); }
+
         .tagline {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.8rem;
-            color: var(--dim-color);
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            color: var(--dim);
             margin: 0 0 3.5rem 0;
             line-height: 1.8;
         }
 
+        /* --- The hook: editorial display statement --- */
         .hook {
-            font-size: 1.1rem;
+            margin: 0 0 2.5rem 0;
+            text-align: left;
+        }
+
+        .hook-display {
+            font-family: var(--font-display);
+            font-weight: 400;
+            font-size: 2.1rem;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            color: var(--on-surface);
             margin: 0 0 1.25rem 0;
-            font-weight: 300;
-            color: #ccc;
+        }
+
+        .hook-display em {
+            font-style: italic;
+            font-weight: 500;
+            color: var(--on-surface);
         }
 
         .hook-sub {
-            color: var(--deep-dim);
-            font-size: 0.88rem;
-            display: block;
-            margin-top: 8px;
-            font-weight: 300;
+            font-family: var(--font-display);
+            font-style: italic;
+            font-weight: 400;
+            font-size: 1.05rem;
+            line-height: 1.55;
+            color: var(--on-surface-variant);
+            margin: 0;
+            padding-left: 1.25rem;
+            border-left: 1px solid rgba(66, 71, 84, 0.3); /* ghost marker */
+        }
+
+        .hook-sub em {
+            font-style: italic;
+            color: var(--tertiary);
+            opacity: 0.85;
         }
 
         .value-prop {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85rem;
-            color: var(--dim-color);
-            margin: 2rem 0 0 0;
-            line-height: 1.7;
-            letter-spacing: 0.3px;
+            font-family: var(--font-label);
+            font-weight: 500;
+            font-size: 0.72rem;
+            color: var(--dim);
+            margin: 0 0 0 0;
+            line-height: 1.8;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            text-align: left;
         }
 
-        .smart-weight {
-            display: inline-block;
-            position: relative;
-            cursor: help;
-            color: var(--text-color);
-            transition: all 0.3s ease;
-            border-bottom: 1px solid var(--accent-color);
+        .value-prop .pipe {
+            color: var(--secondary);
+            opacity: 0.7;
+            margin: 0 0.4rem;
         }
 
-        .smart-weight:hover {
-            color: #fff;
-            letter-spacing: 2px;
-            border-bottom: 1px solid #fff;
-        }
-
-        /* --- Scroll hint (replaces the hero button) --- */
+        /* --- Scroll hint --- */
         .scroll-hint {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
+            font-family: var(--font-label);
+            font-size: 0.68rem;
             color: var(--deep-dim);
-            letter-spacing: 2px;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
             text-decoration: none;
             display: inline-block;
             margin-top: 4rem;
-            padding: 0.5rem 1rem;
-            transition: color 0.3s ease, transform 0.3s ease;
+            padding: 0.5rem 0;
+            transition: color 0.3s ease;
         }
 
-        .scroll-hint:hover {
-            color: var(--code-color);
-        }
+        .scroll-hint:hover { color: var(--tertiary); }
 
         .scroll-hint .chevron {
             display: block;
-            margin-top: 6px;
+            margin-top: 10px;
             animation: bob 2.4s ease-in-out infinite;
         }
 
@@ -312,27 +353,26 @@
             50% { transform: translateY(4px); }
         }
 
-        /* --- Section marker: mono prompt-style label --- */
+        /* --- Section marker (Space Grotesk label) --- */
         .marker {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
-            color: var(--code-color);
-            letter-spacing: 2px;
-            text-transform: lowercase;
-            margin: 0 0 2rem 0;
-            opacity: 0.75;
+            font-family: var(--font-label);
+            font-weight: 500;
+            font-size: 0.68rem;
+            color: var(--tertiary);
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            margin: 0 0 1.5rem 0;
+            opacity: 0.8;
         }
 
         .section-title {
-            font-family: 'Noto Serif', Georgia, serif;
+            font-family: var(--font-display);
             font-weight: 400;
             font-style: italic;
-            font-size: 1.5rem;
-            color: #fff;
-            letter-spacing: 0.01em;
-            text-transform: lowercase;
+            font-size: 1.75rem;
+            color: var(--on-surface);
+            letter-spacing: -0.015em;
             margin: 0 0 3.5rem 0;
-            opacity: 0.9;
         }
 
         /* --- Sections --- */
@@ -340,45 +380,56 @@
             min-height: 100vh;
             display: flex;
             align-items: center;
-            justify-content: center;
             padding: 40px 0 60px;
+        }
+
+        .hero .column {
+            text-align: left;
         }
 
         section.beat {
             padding: 6rem 0;
         }
 
+        /* Tonal sectioning — no borders, background shift only */
+        section.beat.shifted {
+            background: var(--surface-low);
+        }
+
         /* --- Services as prose beats --- */
         .service {
-            margin: 0 0 3.5rem 0;
+            margin: 0 0 3rem 0;
             text-align: left;
         }
 
         .service:last-child { margin-bottom: 0; }
 
         .service-index {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.75rem;
-            color: var(--code-color);
-            letter-spacing: 1.5px;
+            font-family: var(--font-label);
+            font-weight: 500;
+            font-size: 0.68rem;
+            color: var(--tertiary);
+            letter-spacing: 0.24em;
+            text-transform: uppercase;
             margin: 0 0 0.75rem 0;
             display: block;
+            opacity: 0.9;
         }
 
         .service-name {
-            font-family: 'Inter', sans-serif;
-            font-weight: 300;
-            font-size: 1.1rem;
-            color: #fff;
-            margin: 0 0 1rem 0;
-            letter-spacing: 0.02em;
+            font-family: var(--font-display);
+            font-weight: 500;
+            font-size: 1.15rem;
+            color: var(--on-surface);
+            margin: 0 0 0.75rem 0;
+            letter-spacing: -0.01em;
         }
 
         .service p {
-            font-family: 'Inter', sans-serif;
+            font-family: var(--font-body);
             font-weight: 300;
             font-size: 0.95rem;
-            color: #bbb;
+            color: var(--on-surface-variant);
             line-height: 1.75;
             margin: 0;
         }
@@ -397,144 +448,156 @@
             position: absolute;
             top: 0.1rem;
             left: 0;
-            font-family: 'Noto Serif', Georgia, serif;
+            font-family: var(--font-display);
             font-style: italic;
-            font-size: 1.15rem;
-            color: var(--gold-color);
+            font-weight: 500;
+            font-size: 1.2rem;
+            color: var(--secondary);
             letter-spacing: 0.05em;
         }
 
         .stage h3 {
-            font-family: 'Noto Serif', Georgia, serif;
+            font-family: var(--font-display);
             font-weight: 400;
             font-style: italic;
-            font-size: 1.1rem;
-            color: #fff;
+            font-size: 1.15rem;
+            color: var(--on-surface);
             margin: 0 0 0.75rem 0;
+            letter-spacing: -0.01em;
         }
 
         .stage p {
-            font-family: 'Inter', sans-serif;
+            font-family: var(--font-body);
             font-weight: 300;
             font-size: 0.95rem;
-            color: #bbb;
+            color: var(--on-surface-variant);
             line-height: 1.75;
             margin: 0;
         }
 
-        /* --- Proof: one pull-quote --- */
-        .rule {
-            width: 40px;
-            height: 1px;
-            background: #2a2a2a;
-            margin: 0 auto 3rem;
-            border: 0;
-        }
-
-        .rule.after { margin: 3rem auto 0; }
-
+        /* --- Proof: single pull-quote, no rules --- */
         .pull-quote {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 1rem;
-            color: #d0d0d0;
-            line-height: 1.7;
+            font-family: var(--font-display);
+            font-style: italic;
             font-weight: 400;
+            font-size: 1.25rem;
+            color: var(--on-surface);
+            line-height: 1.55;
             margin: 0 auto 1.5rem;
-            max-width: 480px;
+            max-width: 520px;
+            letter-spacing: -0.01em;
         }
 
-        .pull-quote::before { content: '"'; color: var(--code-color); margin-right: 2px; }
-        .pull-quote::after { content: '"'; color: var(--code-color); margin-left: 2px; }
+        .pull-quote::before { content: '"'; color: var(--secondary); margin-right: 2px; opacity: 0.7; }
+        .pull-quote::after { content: '"'; color: var(--secondary); margin-left: 2px; opacity: 0.7; }
 
         .attribution {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
-            color: var(--dim-color);
-            letter-spacing: 0.5px;
+            font-family: var(--font-label);
+            font-weight: 500;
+            font-size: 0.68rem;
+            color: var(--dim);
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
             margin: 0;
         }
 
-        /* --- CTA: dissolves back into the column --- */
+        .souls-wrap { text-align: center; }
+
+        /* --- CTA --- */
         .cta-line {
-            font-family: 'Inter', sans-serif;
-            font-weight: 300;
-            font-size: 1.05rem;
-            color: #ccc;
+            font-family: var(--font-display);
+            font-style: italic;
+            font-weight: 400;
+            font-size: 1.25rem;
+            color: var(--on-surface);
             margin: 0 0 2.25rem 0;
-            line-height: 1.7;
+            line-height: 1.55;
+            letter-spacing: -0.01em;
         }
 
         .contact-btn {
             text-decoration: none;
-            color: var(--bg-color);
-            background-color: var(--gold-color);
-            padding: 14px 32px;
-            border-radius: 1px;
+            color: var(--on-secondary);
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-dim) 100%);
+            padding: 15px 34px;
+            border-radius: 2px;
+            font-family: var(--font-label);
             font-weight: 600;
-            font-size: 0.75rem;
+            font-size: 0.72rem;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
+            letter-spacing: 0.22em;
             transition: all 0.4s ease;
             display: inline-block;
         }
 
         .contact-btn:hover {
-            background-color: var(--gold-bright);
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.35);
+            background: linear-gradient(135deg, #f3d156 0%, var(--secondary) 100%);
+            box-shadow: 0 8px 30px rgba(233, 195, 73, 0.25);
             transform: translateY(-2px);
         }
 
         .contact-btn:focus-visible {
-            outline: 2px solid var(--code-color);
+            outline: 2px solid var(--tertiary);
             outline-offset: 4px;
         }
 
         .cta-micro {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
-            color: var(--deep-dim);
+            font-family: var(--font-label);
+            font-weight: 400;
+            font-size: 0.68rem;
+            color: var(--dim);
             margin-top: 1.5rem;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            line-height: 1.7;
         }
 
         .cta-secondary {
-            color: var(--dim-color);
+            color: var(--on-surface-variant);
             text-decoration: none;
-            border-bottom: 1px solid #333;
+            border-bottom: 1px solid rgba(56, 222, 187, 0.3);
             transition: color 0.3s ease, border-color 0.3s ease;
+            padding-bottom: 1px;
         }
 
         .cta-secondary:hover {
-            color: var(--code-color);
-            border-bottom-color: var(--code-color);
+            color: var(--tertiary);
+            border-bottom-color: var(--tertiary);
         }
 
-        /* --- Footer: one quiet line --- */
+        /* --- Footer --- */
         .footer {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
+            font-family: var(--font-label);
+            font-weight: 400;
+            font-size: 0.68rem;
             color: var(--deep-dim);
             padding: 4rem 0 3rem;
             position: relative;
             z-index: 10;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
         }
 
         .footer a {
-            color: var(--dim-color);
+            color: var(--dim);
             text-decoration: none;
             transition: color 0.3s ease;
         }
 
-        .footer a:hover { color: var(--code-color); }
+        .footer a:hover { color: var(--tertiary); }
 
-        .footer .separator { color: #222; margin: 0 10px; }
+        .footer .separator {
+            color: var(--deep-dim);
+            margin: 0 10px;
+            opacity: 0.5;
+        }
 
         .footer .meta {
-            color: #333;
-            font-size: 0.62rem;
+            color: var(--deep-dim);
+            font-size: 0.6rem;
             margin-top: 1rem;
-            letter-spacing: 1px;
+            letter-spacing: 0.24em;
+            opacity: 0.8;
         }
 
         /* --- Animations --- */
@@ -542,23 +605,25 @@
         .d-1 { animation-delay: 0.1s; }
         .d-2 { animation-delay: 0.2s; }
         .d-3 { animation-delay: 0.3s; }
-        .d-4 { animation-delay: 0.4s; }
-        .d-5 { animation-delay: 0.55s; }
+        .d-4 { animation-delay: 0.45s; }
+        .d-5 { animation-delay: 0.6s; }
+        .d-6 { animation-delay: 0.75s; }
 
         @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 
         @media (prefers-reduced-motion: reduce) {
             .fog-layer, .scroll-hint .chevron { animation: none; }
             .anim { animation: none; opacity: 1; transform: none; }
-            .contact-btn, .smart-weight, .profile-pic { transition: none; }
+            .contact-btn, .profile-pic { transition: none; }
         }
 
         @media (max-width: 600px) {
-            h1 { font-size: 1.5rem; letter-spacing: 0.15em; }
-            .hook { font-size: 1rem; }
-            .section-title { font-size: 1.2rem; }
+            .hook-display { font-size: 1.65rem; }
+            .hook-sub { font-size: 0.95rem; }
+            .section-title { font-size: 1.35rem; }
+            .pull-quote, .cta-line { font-size: 1.1rem; }
             section.beat { padding: 4.5rem 0; }
-            .service { margin-bottom: 3rem; }
+            .service { margin-bottom: 2.75rem; }
         }
     </style>
 </head>
@@ -587,52 +652,53 @@
                 </div>
             </div>
 
-            <h1 class="anim d-2">charon.cx</h1>
+            <p class="wordmark anim d-2">charon<span class="dot">.</span>cx</p>
 
             <p class="tagline anim d-3">
                 AI whisperer // calisthenics // techno // gaming<br>
                 UI/UX development &amp; other nerdy stuff...
             </p>
 
-            <p class="hook anim d-4">
-                Safe passage across the <span class="smart-weight">Uncanny Valley</span>.
-                <span class="hook-sub">
-                    (Because unoptimized <span class="smart-weight">weights</span> will drag you under.)
-                </span>
-            </p>
+            <div class="hook anim d-4">
+                <p class="hook-display">
+                    Safe passage across the <em>Uncanny Valley</em>.
+                </p>
+                <p class="hook-sub">
+                    Because unoptimized <em>weights</em> will drag you under.
+                </p>
+            </div>
 
             <p class="value-prop anim d-5">
-                Freelance AI consulting — strategy, implementation,<br>
-                and interfaces that ship.
+                Strategy <span class="pipe">/</span> Implementation <span class="pipe">/</span> Interfaces
             </p>
 
-            <a href="#passage" class="scroll-hint anim d-5" aria-label="Scroll to services">
-                continue
+            <a href="#passage" class="scroll-hint anim d-6" aria-label="Scroll to services">
+                Continue
                 <span class="chevron" aria-hidden="true">↓</span>
             </a>
         </div>
     </section>
 
     <!-- SERVICES -->
-    <section class="beat" id="passage">
+    <section class="beat shifted" id="passage">
         <div class="column">
-            <p class="marker">&gt; the passage</p>
+            <p class="marker">The Passage</p>
             <h2 class="section-title">three ways across</h2>
 
             <div class="service">
-                <span class="service-index">01 // chart the crossing</span>
+                <span class="service-index">01 — Chart the Crossing</span>
                 <p class="service-name">Strategy &amp; advisory.</p>
                 <p>Roadmaps before code. Build-vs-buy, model selection, workshops, technical due diligence. For teams who need to know what to build before they burn a quarter building it.</p>
             </div>
 
             <div class="service">
-                <span class="service-index">02 // row the boat</span>
+                <span class="service-index">02 — Row the Boat</span>
                 <p class="service-name">Implementation.</p>
                 <p>RAG, agents, fine-tuning, evals, API integrations — and the plumbing that keeps them standing in production. For teams that have the map and need someone on the oars.</p>
             </div>
 
             <div class="service">
-                <span class="service-index">03 // light the lantern</span>
+                <span class="service-index">03 — Light the Lantern</span>
                 <p class="service-name">Interfaces for AI products.</p>
                 <p>Prompt surfaces, streaming, feedback loops, and the edges where humans and weights meet. For teams with a working model and a UX that doesn't do it justice.</p>
             </div>
@@ -642,7 +708,7 @@
     <!-- THE RITE -->
     <section class="beat" id="rite">
         <div class="column">
-            <p class="marker">&gt; the rite</p>
+            <p class="marker">The Rite</p>
             <h2 class="section-title">four stages across</h2>
 
             <div class="stage">
@@ -672,26 +738,22 @@
     </section>
 
     <!-- PROOF -->
-    <section class="beat" id="souls">
-        <div class="column">
-            <p class="marker">&gt; souls ferried</p>
-
-            <hr class="rule">
+    <section class="beat shifted" id="souls">
+        <div class="column souls-wrap">
+            <p class="marker">Souls Ferried</p>
 
             <!-- TODO: Replace with a real testimonial, cleared with the client. -->
             <p class="pull-quote">
                 A short, specific quote about the work or the outcome. One or two lines is enough.
             </p>
-            <p class="attribution">— Name, Title, Company</p>
-
-            <hr class="rule after">
+            <p class="attribution">Name — Title, Company</p>
         </div>
     </section>
 
     <!-- CTA -->
     <section class="beat" id="obol">
         <div class="column">
-            <p class="marker">&gt; the obol</p>
+            <p class="marker">The Obol</p>
             <p class="cta-line">The ferryman accepts coin.<br>Bring yours and let's talk.</p>
 
             <!-- TODO: Replace href with a Cal.com or Calendly link when ready. -->
@@ -700,7 +762,7 @@
             </a>
 
             <p class="cta-micro">
-                Free 30-min intro call. Response within 24 hours.<br>
+                Free 30-min intro call · Response within 24 hours<br>
                 or <a href="mailto:frederik@charon.cx" class="cta-secondary">send an email</a>
             </p>
         </div>
@@ -718,7 +780,7 @@
             <span class="separator">·</span>
             <a href="https://www.instagram.com/insta.linkin" target="_blank" rel="noopener">Instagram</a>
             <div class="meta">
-                Berlin · worldwide · EN / DE &nbsp;&nbsp;·&nbsp;&nbsp; © 2025 Charon.cx
+                Berlin · worldwide · EN / DE &nbsp;·&nbsp; © 2025 Charon.cx
             </div>
         </div>
     </footer>
