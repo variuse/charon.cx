@@ -12,7 +12,7 @@ A personal website (`charon.cx`) with a Charon/River Styx mythological theme, pl
 - Source branch: `gh-pages` (written by the workflow, don't edit directly)
 - Custom domain: `charon.cx` (CNAME file managed by the workflow)
 - HTTPS enforced
-- The workflow copies `index.html`, `style.css`, `assets/`, `insta.png`, `result_146456.jpeg` to an output folder and deploys that — add any new web assets here.
+- The workflow copies `index.html`, `assets/`, `insta.png`, `result_146456.jpeg` to an output folder and deploys that — add any new web assets here.
 - When migrating to React/Vite: uncomment the build steps in the workflow and change `publish_dir` to `./dist`.
 
 **DNS** — managed on Porkbun. Apex A records point to GitHub Pages IPs (185.199.108–111.153). `www` CNAME → `variuse.github.io`. MX/SPF/DKIM/DMARC records intact for email forwarding.
@@ -28,7 +28,7 @@ Open HTML files directly in a browser — no server or build step needed:
 
 **Main site (`index.html`):** Dark cyberpunk/mythological aesthetic. Core visual elements are a multi-layer animated fog effect (River Styx), a circular HUD-style profile container with a hover overlay, and a contact button named "Obol" (the Charon coin metaphor). Fonts loaded from Google Fonts (Inter, JetBrains Mono).
 
-Note: `index.html` contains its own inline `<style>` block — `style.css` in the repo root is a separate, slightly diverged copy. The inline styles are what the live site uses. If refactoring, reconcile the two before removing either.
+Note: `index.html` contains its own inline `<style>` block — this is the single source of truth for styles. (A previously divergent `style.css` was removed.)
 
 **Assets at repo root:** `insta.png`, `result_146456.jpeg` (profile photo) — these are web assets, not source files, kept at root to match the HTML's relative paths.
 

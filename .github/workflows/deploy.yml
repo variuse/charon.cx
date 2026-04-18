@@ -25,7 +25,6 @@ jobs:
         run: |
           mkdir -p ./output
           cp index.html ./output/
-          cp style.css ./output/
           cp -r assets/ ./output/assets/
           cp insta.png ./output/
           cp result_146456.jpeg ./output/

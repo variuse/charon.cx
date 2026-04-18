@@ -3,46 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Charon.cx | Frederik</title>
+    <title>Charon.cx | Frederik — Freelance AI Consulting</title>
+    <meta name="description" content="Freelance AI consulting — strategy, implementation, and interfaces that ship. Based in Berlin, working worldwide.">
+    <meta name="author" content="Frederik">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://charon.cx/">
+    <meta property="og:title" content="Charon.cx | Freelance AI Consulting">
+    <meta property="og:description" content="Safe passage across the Uncanny Valley. Strategy, implementation, and interfaces that ship.">
+    <meta property="og:image" content="https://charon.cx/result_146456.jpeg">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Charon.cx | Freelance AI Consulting">
+    <meta name="twitter:description" content="Safe passage across the Uncanny Valley. Strategy, implementation, and interfaces that ship.">
+    <meta name="twitter:image" content="https://charon.cx/result_146456.jpeg">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "ProfessionalService",
+        "name": "Charon.cx",
+        "description": "Freelance AI consulting — strategy, implementation, and interfaces that ship.",
+        "url": "https://charon.cx",
+        "image": "https://charon.cx/result_146456.jpeg",
+        "areaServed": "Worldwide",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Berlin",
+            "addressCountry": "DE"
+        },
+        "founder": {
+            "@type": "Person",
+            "name": "Frederik"
+        }
+    }
+    </script>
+
     <style>
         :root {
             --bg-color: #050505;
             --text-color: #e5e5e5;
-            --accent-color: #3b82f6; 
+            --accent-color: #3b82f6;
             --gold-color: #ffd700;
-            --code-color: #64ffda; 
+            --code-color: #64ffda;
+            --dim-color: #888;
         }
+
+        * { box-sizing: border-box; }
 
         body {
             background-color: var(--bg-color);
-            background-image: radial-gradient(circle at 50% 50%, #111 0%, #050505 70%);
+            background-image: radial-gradient(circle at 50% 30%, #111 0%, #050505 70%);
             color: var(--text-color);
             font-family: 'Inter', -apple-system, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
             margin: 0;
-            padding: 20px;
+            padding: 0;
             text-align: center;
             -webkit-font-smoothing: antialiased;
-            overflow: hidden;
             position: relative;
         }
 
-        .container {
-            max-width: 580px;
-            position: relative;
-            z-index: 10;
-        }
-
-        /* --- 1. The River Styx Fog Animation --- */
+        /* --- 1. The River Styx Fog Animation (fixed so it persists during scroll) --- */
         .fog-container {
-            position: absolute;
+            position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
@@ -86,7 +113,7 @@
             overflow: hidden;
             border: 1px solid #222;
             transition: border-color 0.3s ease;
-            transform: translateZ(0); 
+            transform: translateZ(0);
             background: #000;
         }
 
@@ -114,7 +141,7 @@
 
         .hud-text {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             color: var(--code-color);
             text-align: left;
             line-height: 1.8;
@@ -156,9 +183,18 @@
         /* --- 4. The Ferryman Hook --- */
         .hook {
             font-size: 1.1rem;
-            margin-bottom: 4.5rem;
+            margin-bottom: 1.5rem;
             font-weight: 300;
             color: #ccc;
+        }
+
+        .value-prop {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--dim-color);
+            margin-bottom: 4rem;
+            line-height: 1.7;
+            letter-spacing: 0.3px;
         }
 
         .smart-weight {
@@ -190,48 +226,245 @@
             transition: all 0.4s ease;
             position: relative;
             z-index: 20;
+            display: inline-block;
         }
 
         .contact-btn:hover {
             background-color: #fff;
-            box-shadow: 0 0 25px rgba(255, 215, 0, 0.3); 
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.3);
             transform: translateY(-2px);
         }
 
-        /* --- 6. Footer & Social --- */
+        .contact-btn:focus-visible {
+            outline: 2px solid var(--code-color);
+            outline-offset: 4px;
+        }
+
+        .cta-micro {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: #555;
+            margin-top: 1.25rem;
+            letter-spacing: 0.5px;
+        }
+
+        .cta-secondary {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--dim-color);
+            text-decoration: none;
+            border-bottom: 1px solid #333;
+            transition: color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .cta-secondary:hover {
+            color: var(--code-color);
+            border-bottom-color: var(--code-color);
+        }
+
+        /* --- 6. Sections --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px 60px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero .container { max-width: 580px; }
+
+        .section {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 5rem 24px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .section-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--code-color);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+        }
+
+        .section-title {
+            font-family: 'Inter', sans-serif;
+            font-weight: 200;
+            font-size: 1.5rem;
+            color: #fff;
+            letter-spacing: 0.15em;
+            margin: 0 0 3rem 0;
+            text-transform: lowercase;
+        }
+
+        /* --- 7. Services --- */
+        .services {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .service-card {
+            border: 1px solid #1c1c1c;
+            padding: 2rem 1.5rem;
+            text-align: left;
+            background: rgba(10, 10, 10, 0.4);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+        }
+
+        .service-card:hover {
+            border-color: var(--code-color);
+            box-shadow: 0 0 25px rgba(100, 255, 218, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .service-card .service-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--code-color);
+            margin: 0 0 1rem 0;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .service-card h3 {
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            color: #fff;
+            font-weight: 300;
+            margin: 0 0 0.75rem 0;
+            letter-spacing: 0.02em;
+        }
+
+        .service-card p {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 300;
+            color: var(--dim-color);
+            line-height: 1.65;
+            margin: 0;
+        }
+
+        /* --- 8. Proof --- */
+        .logo-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 4rem;
+            opacity: 0.75;
+        }
+
+        .client-logo {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: #555;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+
+        .client-logo:hover { color: #bbb; }
+
+        .testimonials {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2.5rem;
+            text-align: left;
+        }
+
+        .testimonial {
+            border-left: 2px solid #1f1f1f;
+            padding: 0.25rem 0 0.25rem 1.5rem;
+        }
+
+        .testimonial blockquote {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: #ccc;
+            line-height: 1.7;
+            font-weight: 400;
+            margin: 0 0 1rem 0;
+            font-style: normal;
+        }
+
+        .testimonial cite {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: #666;
+            font-style: normal;
+            letter-spacing: 0.5px;
+        }
+
+        /* --- 9. CTA Section --- */
+        .cta-section {
+            text-align: center;
+            padding: 6rem 20px 5rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .cta-section .section-title {
+            margin-bottom: 2rem;
+        }
+
+        .cta-section .cta-secondary-wrap {
+            margin-top: 2rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: #444;
+        }
+
+        /* --- 10. Footer --- */
         .footer {
-            margin-top: 5rem;
+            margin: 4rem auto 2rem;
             font-size: 0.65rem;
             color: #333;
             font-family: 'JetBrains Mono', monospace;
-            /* Changed to Row for "Imprint Line" feel */
             display: flex;
-            flex-direction: row; 
+            flex-direction: row;
             justify-content: center;
             align-items: center;
             gap: 12px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 10;
         }
 
-        .separator {
-            opacity: 0.2;
+        .separator { opacity: 0.2; }
+
+        .footer a {
+            color: var(--dim-color);
+            text-decoration: none;
+            opacity: 0.6;
+            transition: opacity 0.3s ease, color 0.3s ease;
         }
 
-        .social-link {
-            display: flex;
-            align-items: center;
-            opacity: 0.5;
-            transition: all 0.3s ease;
-        }
-
-        .social-link:hover {
+        .footer a:hover {
             opacity: 1;
-            transform: scale(1.1);
+            color: var(--code-color);
         }
 
-        .social-icon {
-            width: 20px; /* Scaled down from 50px to fit line */
-            height: 20px;
-            object-fit: contain;
+        .social-link { display: flex; align-items: center; }
+        .social-link:hover { transform: scale(1.1); }
+        .social-icon { width: 20px; height: 20px; object-fit: contain; }
+
+        .footer-loc {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            color: #333;
+            text-align: center;
+            margin: 0 auto 3rem;
+            letter-spacing: 1px;
+            position: relative;
+            z-index: 10;
         }
 
         .anim { opacity: 0; transform: translateY(15px); animation: fadeUp 0.8s ease forwards; }
@@ -241,58 +474,163 @@
         .d-4 { animation-delay: 0.4s; }
 
         @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
-        
+
+        @media (prefers-reduced-motion: reduce) {
+            .fog-layer { animation: none; }
+            .anim { animation: none; opacity: 1; transform: none; }
+            .contact-btn, .service-card, .smart-weight, .profile-pic { transition: none; }
+        }
+
+        @media (max-width: 720px) {
+            .services { grid-template-columns: 1fr; }
+            .testimonials { grid-template-columns: 1fr; gap: 1.75rem; }
+            .section { padding: 3.5rem 20px; }
+            .cta-section { padding: 4rem 20px 3rem; }
+        }
+
         @media (max-width: 600px) {
             h1 { font-size: 1.5rem; letter-spacing: 0.15em; }
+            .section-title { font-size: 1.25rem; }
+            .hook { font-size: 1rem; }
+            .logo-row { gap: 1.5rem; }
         }
     </style>
 </head>
 <body>
 
-    <div class="fog-container">
+    <div class="fog-container" aria-hidden="true">
         <div class="fog-layer"></div>
         <div class="fog-layer"></div>
     </div>
 
-    <div class="container">
-        
-        <div class="profile-container anim d-1">
-            <img src="result_146456.jpeg" alt="Frederik" class="profile-pic">
-            <div class="hud-overlay">
-                <div class="hud-text">
-                    > LOC: BERLIN<br>
-                    > BPM: 145<br>
-                    > OBOL: PENDING
+    <!-- HERO -->
+    <section class="hero">
+        <div class="container">
+
+            <div class="profile-container anim d-1">
+                <img src="result_146456.jpeg" alt="Frederik" class="profile-pic">
+                <div class="hud-overlay">
+                    <div class="hud-text">
+                        &gt; LOC: BERLIN<br>
+                        &gt; BPM: 145<br>
+                        &gt; STATUS: TAKING CLIENTS
+                    </div>
                 </div>
             </div>
-        </div>
-        
-        <h1 class="anim d-2">charon.cx</h1>
-        
-        <p class="tagline anim d-3">
-            AI whisperer // calisthenics // techno // gaming <br>
-            UI/UX development & other nerdy stuff...
-        </p>
 
-        <p class="hook anim d-4">
-            Safe passage across the <span class="smart-weight">Uncanny Valley</span>.
-            <br>
-            <span style="color: #555; font-size: 0.8em; display: block; margin-top: 10px; font-weight: 300;">
-                (Because unoptimized <span class="smart-weight">weights</span> will drag you under.)
-            </span>
-        </p>
+            <h1 class="anim d-2">charon.cx</h1>
 
-        <a href="mailto:frederik@charon.cx" class="contact-btn anim d-4">
-            Ping the Ferryman
-        </a>
+            <p class="tagline anim d-3">
+                AI whisperer // calisthenics // techno // gaming <br>
+                UI/UX development &amp; other nerdy stuff...
+            </p>
 
-        <div class="footer anim d-4">
-            <span>&copy; 2025 Charon.cx</span>
-            <span class="separator">|</span>
-            <a href="https://www.instagram.com/insta.linkin" target="_blank" class="social-link" aria-label="Instagram">
-                <img src="insta.png" alt="Instagram" class="social-icon">
+            <p class="hook anim d-4">
+                Safe passage across the <span class="smart-weight">Uncanny Valley</span>.
+                <br>
+                <span style="color: #555; font-size: 0.8em; display: block; margin-top: 10px; font-weight: 300;">
+                    (Because unoptimized <span class="smart-weight">weights</span> will drag you under.)
+                </span>
+            </p>
+
+            <p class="value-prop anim d-4">
+                Freelance AI consulting — strategy, implementation,<br>
+                and interfaces that ship.
+            </p>
+
+            <a href="mailto:frederik@charon.cx" class="contact-btn anim d-4">
+                Ping the Ferryman
             </a>
+
         </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="section" id="passage">
+        <div class="section-label">&gt; passage</div>
+        <h2 class="section-title">three ways across</h2>
+
+        <div class="services">
+            <article class="service-card">
+                <div class="service-label">&gt; 01 // chart the crossing</div>
+                <h3>AI strategy &amp; advisory</h3>
+                <p>Roadmaps, build-vs-buy reviews, workshops, and technical due diligence. Figure out what to build before you burn a quarter.</p>
+            </article>
+
+            <article class="service-card">
+                <div class="service-label">&gt; 02 // row the boat</div>
+                <h3>Implementation</h3>
+                <p>RAG, agents, fine-tuning, evals, and API integrations. Production-grade ML with the plumbing that keeps it standing.</p>
+            </article>
+
+            <article class="service-card">
+                <div class="service-label">&gt; 03 // light the lantern</div>
+                <h3>UI/UX for AI products</h3>
+                <p>Interfaces that make models feel usable — prompt surfaces, streaming, feedback loops, and the edges where humans and weights meet.</p>
+            </article>
+        </div>
+    </section>
+
+    <!-- PROOF -->
+    <section class="section" id="souls">
+        <div class="section-label">&gt; souls ferried</div>
+        <h2 class="section-title">past passengers</h2>
+
+        <!-- TODO: Replace with real client logos. Put SVG/PNG files in assets/logos/ and swap spans for <img class="client-logo">. -->
+        <div class="logo-row">
+            <span class="client-logo">Client One</span>
+            <span class="client-logo">Client Two</span>
+            <span class="client-logo">Client Three</span>
+            <span class="client-logo">Client Four</span>
+        </div>
+
+        <!-- TODO: Replace with real testimonials once cleared with clients. -->
+        <div class="testimonials">
+            <div class="testimonial">
+                <blockquote>"Short, specific quote about an outcome or the working relationship — one or two sentences maximum."</blockquote>
+                <cite>— Name, Title, Company</cite>
+            </div>
+            <div class="testimonial">
+                <blockquote>"Second quote focused on a different angle — speed, clarity, technical depth, or business impact."</blockquote>
+                <cite>— Name, Title, Company</cite>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section" id="obol">
+        <div class="section-label">&gt; the obol</div>
+        <h2 class="section-title">pay the ferryman</h2>
+
+        <!-- TODO: Replace href with your Cal.com or Calendly link, e.g. https://cal.com/frederik/intro -->
+        <a href="mailto:frederik@charon.cx?subject=Intro%20call" class="contact-btn">
+            Book a 30-min intro call
+        </a>
+        <div class="cta-micro">Free. Response within 24 hours.</div>
+
+        <div class="cta-secondary-wrap">
+            or just
+            <a href="mailto:frederik@charon.cx" class="cta-secondary">send an email</a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <div class="footer-loc">Berlin · available worldwide · EN / DE</div>
+
+    <div class="footer">
+        <span>&copy; 2025 Charon.cx</span>
+        <span class="separator">|</span>
+        <!-- TODO: Replace # with your LinkedIn URL -->
+        <a href="#" target="_blank" rel="noopener">LinkedIn</a>
+        <span class="separator">|</span>
+        <!-- TODO: Replace # with your GitHub URL (e.g. https://github.com/variuse) -->
+        <a href="#" target="_blank" rel="noopener">GitHub</a>
+        <span class="separator">|</span>
+        <a href="mailto:frederik@charon.cx">Email</a>
+        <span class="separator">|</span>
+        <a href="https://www.instagram.com/insta.linkin" target="_blank" rel="noopener" class="social-link" aria-label="Instagram">
+            <img src="insta.png" alt="Instagram" class="social-icon">
+        </a>
     </div>
 
 </body>
