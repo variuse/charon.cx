@@ -51,6 +51,8 @@
             --gold-color: #ffd700;
             --code-color: #64ffda;
             --dim-color: #888;
+            --deep-dim: #555;
+            --column: 580px;
         }
 
         * { box-sizing: border-box; }
@@ -67,7 +69,7 @@
             position: relative;
         }
 
-        /* --- 1. The River Styx Fog Animation (fixed so it persists during scroll) --- */
+        /* --- Fog (fixed so it persists across scroll) --- */
         .fog-container {
             position: fixed;
             bottom: 0;
@@ -103,7 +105,16 @@
             100% { transform: translateX(-50%); }
         }
 
-        /* --- 2. The HUD Profile --- */
+        /* --- Single column: everything flows at the same width --- */
+        .column {
+            max-width: var(--column);
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* --- HUD Profile --- */
         .profile-container {
             position: relative;
             width: 140px;
@@ -160,13 +171,13 @@
 
         .profile-container:hover .hud-overlay { opacity: 1; }
 
-        /* --- 3. Typography --- */
+        /* --- Typography --- */
         h1 {
             font-family: 'Inter', sans-serif;
             font-weight: 200;
             letter-spacing: 0.25em;
             text-transform: lowercase;
-            margin-bottom: 2rem;
+            margin: 0 0 2rem 0;
             font-size: 2rem;
             color: #fff;
             opacity: 0.85;
@@ -176,23 +187,30 @@
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.8rem;
             color: var(--dim-color);
-            margin-bottom: 3.5rem;
+            margin: 0 0 3.5rem 0;
             line-height: 1.8;
         }
 
-        /* --- 4. The Ferryman Hook --- */
         .hook {
             font-size: 1.1rem;
-            margin-bottom: 1.5rem;
+            margin: 0 0 1.25rem 0;
             font-weight: 300;
             color: #ccc;
+        }
+
+        .hook-sub {
+            color: var(--deep-dim);
+            font-size: 0.88rem;
+            display: block;
+            margin-top: 8px;
+            font-weight: 300;
         }
 
         .value-prop {
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.85rem;
             color: var(--dim-color);
-            margin-bottom: 4rem;
+            margin: 2rem 0 0 0;
             line-height: 1.7;
             letter-spacing: 0.3px;
         }
@@ -212,7 +230,146 @@
             border-bottom: 1px solid #fff;
         }
 
-        /* --- 5. The Obol Button --- */
+        /* --- Scroll hint (replaces the hero button) --- */
+        .scroll-hint {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--deep-dim);
+            letter-spacing: 2px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 4rem;
+            padding: 0.5rem 1rem;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .scroll-hint:hover {
+            color: var(--code-color);
+        }
+
+        .scroll-hint .chevron {
+            display: block;
+            margin-top: 6px;
+            animation: bob 2.4s ease-in-out infinite;
+        }
+
+        @keyframes bob {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(4px); }
+        }
+
+        /* --- Section marker: mono prompt-style label --- */
+        .marker {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--code-color);
+            letter-spacing: 2px;
+            text-transform: lowercase;
+            margin: 0 0 2rem 0;
+            opacity: 0.75;
+        }
+
+        .section-title {
+            font-family: 'Inter', sans-serif;
+            font-weight: 200;
+            font-size: 1.4rem;
+            color: #fff;
+            letter-spacing: 0.12em;
+            text-transform: lowercase;
+            margin: 0 0 3.5rem 0;
+            opacity: 0.9;
+        }
+
+        /* --- Sections --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 0 60px;
+        }
+
+        section.beat {
+            padding: 6rem 0;
+        }
+
+        /* --- Services as prose beats --- */
+        .service {
+            margin: 0 0 3.5rem 0;
+            text-align: left;
+        }
+
+        .service:last-child { margin-bottom: 0; }
+
+        .service-index {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--code-color);
+            letter-spacing: 1.5px;
+            margin: 0 0 0.75rem 0;
+            display: block;
+        }
+
+        .service-name {
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            font-size: 1.1rem;
+            color: #fff;
+            margin: 0 0 1rem 0;
+            letter-spacing: 0.02em;
+        }
+
+        .service p {
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            font-size: 0.95rem;
+            color: #bbb;
+            line-height: 1.75;
+            margin: 0;
+        }
+
+        /* --- Proof: one pull-quote --- */
+        .rule {
+            width: 40px;
+            height: 1px;
+            background: #2a2a2a;
+            margin: 0 auto 3rem;
+            border: 0;
+        }
+
+        .rule.after { margin: 3rem auto 0; }
+
+        .pull-quote {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1rem;
+            color: #d0d0d0;
+            line-height: 1.7;
+            font-weight: 400;
+            margin: 0 auto 1.5rem;
+            max-width: 480px;
+        }
+
+        .pull-quote::before { content: '"'; color: var(--code-color); margin-right: 2px; }
+        .pull-quote::after { content: '"'; color: var(--code-color); margin-left: 2px; }
+
+        .attribution {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--dim-color);
+            letter-spacing: 0.5px;
+            margin: 0;
+        }
+
+        /* --- CTA: dissolves back into the column --- */
+        .cta-line {
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            font-size: 1.05rem;
+            color: #ccc;
+            margin: 0 0 2.25rem 0;
+            line-height: 1.7;
+        }
+
         .contact-btn {
             text-decoration: none;
             color: var(--bg-color);
@@ -224,8 +381,6 @@
             text-transform: uppercase;
             letter-spacing: 1.5px;
             transition: all 0.4s ease;
-            position: relative;
-            z-index: 20;
             display: inline-block;
         }
 
@@ -243,14 +398,12 @@
         .cta-micro {
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.7rem;
-            color: #555;
-            margin-top: 1.25rem;
+            color: var(--deep-dim);
+            margin-top: 1.5rem;
             letter-spacing: 0.5px;
         }
 
         .cta-secondary {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
             color: var(--dim-color);
             text-decoration: none;
             border-bottom: 1px solid #333;
@@ -262,237 +415,56 @@
             border-bottom-color: var(--code-color);
         }
 
-        /* --- 6. Sections --- */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 40px 20px 60px;
-            position: relative;
-            z-index: 10;
-        }
-
-        .hero .container { max-width: 580px; }
-
-        .section {
-            max-width: 980px;
-            margin: 0 auto;
-            padding: 5rem 24px;
-            position: relative;
-            z-index: 10;
-        }
-
-        .section-label {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
-            color: var(--code-color);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 0.75rem;
-        }
-
-        .section-title {
-            font-family: 'Inter', sans-serif;
-            font-weight: 200;
-            font-size: 1.5rem;
-            color: #fff;
-            letter-spacing: 0.15em;
-            margin: 0 0 3rem 0;
-            text-transform: lowercase;
-        }
-
-        /* --- 7. Services --- */
-        .services {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-        }
-
-        .service-card {
-            border: 1px solid #1c1c1c;
-            padding: 2rem 1.5rem;
-            text-align: left;
-            background: rgba(10, 10, 10, 0.4);
-            transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
-        }
-
-        .service-card:hover {
-            border-color: var(--code-color);
-            box-shadow: 0 0 25px rgba(100, 255, 218, 0.08);
-            transform: translateY(-2px);
-        }
-
-        .service-card .service-label {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.75rem;
-            color: var(--code-color);
-            margin: 0 0 1rem 0;
-            font-weight: 500;
-            letter-spacing: 0.5px;
-        }
-
-        .service-card h3 {
-            font-family: 'Inter', sans-serif;
-            font-size: 1rem;
-            color: #fff;
-            font-weight: 300;
-            margin: 0 0 0.75rem 0;
-            letter-spacing: 0.02em;
-        }
-
-        .service-card p {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.85rem;
-            font-weight: 300;
-            color: var(--dim-color);
-            line-height: 1.65;
-            margin: 0;
-        }
-
-        /* --- 8. Proof --- */
-        .logo-row {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 2.5rem;
-            flex-wrap: wrap;
-            margin-bottom: 4rem;
-            opacity: 0.75;
-        }
-
-        .client-logo {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.75rem;
-            color: #555;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            transition: color 0.3s ease;
-        }
-
-        .client-logo:hover { color: #bbb; }
-
-        .testimonials {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2.5rem;
-            text-align: left;
-        }
-
-        .testimonial {
-            border-left: 2px solid #1f1f1f;
-            padding: 0.25rem 0 0.25rem 1.5rem;
-        }
-
-        .testimonial blockquote {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9rem;
-            color: #ccc;
-            line-height: 1.7;
-            font-weight: 400;
-            margin: 0 0 1rem 0;
-            font-style: normal;
-        }
-
-        .testimonial cite {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
-            color: #666;
-            font-style: normal;
-            letter-spacing: 0.5px;
-        }
-
-        /* --- 9. CTA Section --- */
-        .cta-section {
-            text-align: center;
-            padding: 6rem 20px 5rem;
-            position: relative;
-            z-index: 10;
-        }
-
-        .cta-section .section-title {
-            margin-bottom: 2rem;
-        }
-
-        .cta-section .cta-secondary-wrap {
-            margin-top: 2rem;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
-            color: #444;
-        }
-
-        /* --- 10. Footer --- */
+        /* --- Footer: one quiet line --- */
         .footer {
-            margin: 4rem auto 2rem;
-            font-size: 0.65rem;
-            color: #333;
             font-family: 'JetBrains Mono', monospace;
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
+            font-size: 0.7rem;
+            color: var(--deep-dim);
+            padding: 4rem 0 3rem;
             position: relative;
             z-index: 10;
+            letter-spacing: 0.5px;
         }
-
-        .separator { opacity: 0.2; }
 
         .footer a {
             color: var(--dim-color);
             text-decoration: none;
-            opacity: 0.6;
-            transition: opacity 0.3s ease, color 0.3s ease;
+            transition: color 0.3s ease;
         }
 
-        .footer a:hover {
-            opacity: 1;
-            color: var(--code-color);
-        }
+        .footer a:hover { color: var(--code-color); }
 
-        .social-link { display: flex; align-items: center; }
-        .social-link:hover { transform: scale(1.1); }
-        .social-icon { width: 20px; height: 20px; object-fit: contain; }
+        .footer .separator { color: #222; margin: 0 10px; }
 
-        .footer-loc {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.65rem;
+        .footer .meta {
             color: #333;
-            text-align: center;
-            margin: 0 auto 3rem;
+            font-size: 0.62rem;
+            margin-top: 1rem;
             letter-spacing: 1px;
-            position: relative;
-            z-index: 10;
         }
 
+        /* --- Animations --- */
         .anim { opacity: 0; transform: translateY(15px); animation: fadeUp 0.8s ease forwards; }
         .d-1 { animation-delay: 0.1s; }
         .d-2 { animation-delay: 0.2s; }
         .d-3 { animation-delay: 0.3s; }
         .d-4 { animation-delay: 0.4s; }
+        .d-5 { animation-delay: 0.55s; }
 
         @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 
         @media (prefers-reduced-motion: reduce) {
-            .fog-layer { animation: none; }
+            .fog-layer, .scroll-hint .chevron { animation: none; }
             .anim { animation: none; opacity: 1; transform: none; }
-            .contact-btn, .service-card, .smart-weight, .profile-pic { transition: none; }
-        }
-
-        @media (max-width: 720px) {
-            .services { grid-template-columns: 1fr; }
-            .testimonials { grid-template-columns: 1fr; gap: 1.75rem; }
-            .section { padding: 3.5rem 20px; }
-            .cta-section { padding: 4rem 20px 3rem; }
+            .contact-btn, .smart-weight, .profile-pic { transition: none; }
         }
 
         @media (max-width: 600px) {
             h1 { font-size: 1.5rem; letter-spacing: 0.15em; }
-            .section-title { font-size: 1.25rem; }
             .hook { font-size: 1rem; }
-            .logo-row { gap: 1.5rem; }
+            .section-title { font-size: 1.2rem; }
+            section.beat { padding: 4.5rem 0; }
+            .service { margin-bottom: 3rem; }
         }
     </style>
 </head>
@@ -505,8 +477,7 @@
 
     <!-- HERO -->
     <section class="hero">
-        <div class="container">
-
+        <div class="column">
             <div class="profile-container anim d-1">
                 <img src="result_146456.jpeg" alt="Frederik" class="profile-pic">
                 <div class="hud-overlay">
@@ -521,117 +492,106 @@
             <h1 class="anim d-2">charon.cx</h1>
 
             <p class="tagline anim d-3">
-                AI whisperer // calisthenics // techno // gaming <br>
+                AI whisperer // calisthenics // techno // gaming<br>
                 UI/UX development &amp; other nerdy stuff...
             </p>
 
             <p class="hook anim d-4">
                 Safe passage across the <span class="smart-weight">Uncanny Valley</span>.
-                <br>
-                <span style="color: #555; font-size: 0.8em; display: block; margin-top: 10px; font-weight: 300;">
+                <span class="hook-sub">
                     (Because unoptimized <span class="smart-weight">weights</span> will drag you under.)
                 </span>
             </p>
 
-            <p class="value-prop anim d-4">
+            <p class="value-prop anim d-5">
                 Freelance AI consulting — strategy, implementation,<br>
                 and interfaces that ship.
             </p>
 
-            <a href="mailto:frederik@charon.cx" class="contact-btn anim d-4">
-                Ping the Ferryman
+            <a href="#passage" class="scroll-hint anim d-5" aria-label="Scroll to services">
+                continue
+                <span class="chevron" aria-hidden="true">↓</span>
             </a>
-
         </div>
     </section>
 
     <!-- SERVICES -->
-    <section class="section" id="passage">
-        <div class="section-label">&gt; passage</div>
-        <h2 class="section-title">three ways across</h2>
+    <section class="beat" id="passage">
+        <div class="column">
+            <p class="marker">&gt; the passage</p>
+            <h2 class="section-title">three ways across</h2>
 
-        <div class="services">
-            <article class="service-card">
-                <div class="service-label">&gt; 01 // chart the crossing</div>
-                <h3>AI strategy &amp; advisory</h3>
-                <p>Roadmaps, build-vs-buy reviews, workshops, and technical due diligence. Figure out what to build before you burn a quarter.</p>
-            </article>
+            <div class="service">
+                <span class="service-index">01 // chart the crossing</span>
+                <p class="service-name">Strategy &amp; advisory.</p>
+                <p>Roadmaps before code. Build-vs-buy, model selection, workshops, technical due diligence. For teams who need to know what to build before they burn a quarter building it.</p>
+            </div>
 
-            <article class="service-card">
-                <div class="service-label">&gt; 02 // row the boat</div>
-                <h3>Implementation</h3>
-                <p>RAG, agents, fine-tuning, evals, and API integrations. Production-grade ML with the plumbing that keeps it standing.</p>
-            </article>
+            <div class="service">
+                <span class="service-index">02 // row the boat</span>
+                <p class="service-name">Implementation.</p>
+                <p>RAG, agents, fine-tuning, evals, API integrations — and the plumbing that keeps them standing in production. For teams that have the map and need someone on the oars.</p>
+            </div>
 
-            <article class="service-card">
-                <div class="service-label">&gt; 03 // light the lantern</div>
-                <h3>UI/UX for AI products</h3>
-                <p>Interfaces that make models feel usable — prompt surfaces, streaming, feedback loops, and the edges where humans and weights meet.</p>
-            </article>
+            <div class="service">
+                <span class="service-index">03 // light the lantern</span>
+                <p class="service-name">Interfaces for AI products.</p>
+                <p>Prompt surfaces, streaming, feedback loops, and the edges where humans and weights meet. For teams with a working model and a UX that doesn't do it justice.</p>
+            </div>
         </div>
     </section>
 
     <!-- PROOF -->
-    <section class="section" id="souls">
-        <div class="section-label">&gt; souls ferried</div>
-        <h2 class="section-title">past passengers</h2>
+    <section class="beat" id="souls">
+        <div class="column">
+            <p class="marker">&gt; souls ferried</p>
 
-        <!-- TODO: Replace with real client logos. Put SVG/PNG files in assets/logos/ and swap spans for <img class="client-logo">. -->
-        <div class="logo-row">
-            <span class="client-logo">Client One</span>
-            <span class="client-logo">Client Two</span>
-            <span class="client-logo">Client Three</span>
-            <span class="client-logo">Client Four</span>
-        </div>
+            <hr class="rule">
 
-        <!-- TODO: Replace with real testimonials once cleared with clients. -->
-        <div class="testimonials">
-            <div class="testimonial">
-                <blockquote>"Short, specific quote about an outcome or the working relationship — one or two sentences maximum."</blockquote>
-                <cite>— Name, Title, Company</cite>
-            </div>
-            <div class="testimonial">
-                <blockquote>"Second quote focused on a different angle — speed, clarity, technical depth, or business impact."</blockquote>
-                <cite>— Name, Title, Company</cite>
-            </div>
+            <!-- TODO: Replace with a real testimonial, cleared with the client. -->
+            <p class="pull-quote">
+                A short, specific quote about the work or the outcome. One or two lines is enough.
+            </p>
+            <p class="attribution">— Name, Title, Company</p>
+
+            <hr class="rule after">
         </div>
     </section>
 
     <!-- CTA -->
-    <section class="cta-section" id="obol">
-        <div class="section-label">&gt; the obol</div>
-        <h2 class="section-title">pay the ferryman</h2>
+    <section class="beat" id="obol">
+        <div class="column">
+            <p class="marker">&gt; the obol</p>
+            <p class="cta-line">The ferryman accepts coin.<br>Bring yours and let's talk.</p>
 
-        <!-- TODO: Replace href with your Cal.com or Calendly link, e.g. https://cal.com/frederik/intro -->
-        <a href="mailto:frederik@charon.cx?subject=Intro%20call" class="contact-btn">
-            Book a 30-min intro call
-        </a>
-        <div class="cta-micro">Free. Response within 24 hours.</div>
+            <!-- TODO: Replace href with a Cal.com or Calendly link when ready. -->
+            <a href="mailto:frederik@charon.cx?subject=Intro%20call" class="contact-btn">
+                Ping the Ferryman
+            </a>
 
-        <div class="cta-secondary-wrap">
-            or just
-            <a href="mailto:frederik@charon.cx" class="cta-secondary">send an email</a>
+            <p class="cta-micro">
+                Free 30-min intro call. Response within 24 hours.<br>
+                or <a href="mailto:frederik@charon.cx" class="cta-secondary">send an email</a>
+            </p>
         </div>
     </section>
 
     <!-- FOOTER -->
-    <div class="footer-loc">Berlin · available worldwide · EN / DE</div>
-
-    <div class="footer">
-        <span>&copy; 2025 Charon.cx</span>
-        <span class="separator">|</span>
-        <!-- TODO: Replace # with your LinkedIn URL -->
-        <a href="#" target="_blank" rel="noopener">LinkedIn</a>
-        <span class="separator">|</span>
-        <!-- TODO: Replace # with your GitHub URL (e.g. https://github.com/variuse) -->
-        <a href="#" target="_blank" rel="noopener">GitHub</a>
-        <span class="separator">|</span>
-        <a href="mailto:frederik@charon.cx">Email</a>
-        <span class="separator">|</span>
-        <a href="https://www.instagram.com/insta.linkin" target="_blank" rel="noopener" class="social-link" aria-label="Instagram">
-            <img src="insta.png" alt="Instagram" class="social-icon">
-        </a>
-    </div>
+    <footer class="footer">
+        <div class="column">
+            <!-- TODO: Replace # with your LinkedIn and GitHub URLs -->
+            <a href="#" target="_blank" rel="noopener">LinkedIn</a>
+            <span class="separator">·</span>
+            <a href="#" target="_blank" rel="noopener">GitHub</a>
+            <span class="separator">·</span>
+            <a href="mailto:frederik@charon.cx">Email</a>
+            <span class="separator">·</span>
+            <a href="https://www.instagram.com/insta.linkin" target="_blank" rel="noopener">Instagram</a>
+            <div class="meta">
+                Berlin · worldwide · EN / DE &nbsp;&nbsp;·&nbsp;&nbsp; © 2025 Charon.cx
+            </div>
+        </div>
+    </footer>
 
 </body>
 </html>
