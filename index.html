@@ -20,7 +20,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400&family=JetBrains+Mono:wght@400;500&family=Noto+Serif:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
 
     <script type="application/ld+json">
     {
@@ -48,7 +48,8 @@
             --bg-color: #050505;
             --text-color: #e5e5e5;
             --accent-color: #3b82f6;
-            --gold-color: #ffd700;
+            --gold-color: #d4af37;
+            --gold-bright: #e9c349;
             --code-color: #64ffda;
             --dim-color: #888;
             --deep-dim: #555;
@@ -114,17 +115,70 @@
             z-index: 10;
         }
 
-        /* --- HUD Profile --- */
-        .profile-container {
+        /* --- HUD Profile with corner-bracket frame --- */
+        .profile-frame {
             position: relative;
+            width: 168px;
+            height: 168px;
+            margin: 0 auto 2.75rem auto;
+        }
+
+        .profile-frame::before,
+        .profile-frame::after,
+        .profile-frame > .bracket-bl,
+        .profile-frame > .bracket-br {
+            content: '';
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            border-color: var(--gold-color);
+            opacity: 0.6;
+            transition: opacity 0.3s ease, border-color 0.3s ease;
+        }
+
+        .profile-frame::before {
+            top: 0; left: 0;
+            border-top: 1px solid;
+            border-left: 1px solid;
+        }
+
+        .profile-frame::after {
+            top: 0; right: 0;
+            border-top: 1px solid;
+            border-right: 1px solid;
+        }
+
+        .profile-frame .bracket-bl {
+            bottom: 0; left: 0;
+            border-bottom: 1px solid var(--gold-color);
+            border-left: 1px solid var(--gold-color);
+        }
+
+        .profile-frame .bracket-br {
+            bottom: 0; right: 0;
+            border-bottom: 1px solid var(--gold-color);
+            border-right: 1px solid var(--gold-color);
+        }
+
+        .profile-frame:hover::before,
+        .profile-frame:hover::after,
+        .profile-frame:hover .bracket-bl,
+        .profile-frame:hover .bracket-br {
+            opacity: 1;
+            border-color: var(--gold-bright);
+        }
+
+        .profile-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             width: 140px;
             height: 140px;
-            margin: 0 auto 2.5rem auto;
             border-radius: 50%;
             overflow: hidden;
             border: 1px solid #222;
             transition: border-color 0.3s ease;
-            transform: translateZ(0);
             background: #000;
         }
 
@@ -173,14 +227,14 @@
 
         /* --- Typography --- */
         h1 {
-            font-family: 'Inter', sans-serif;
-            font-weight: 200;
-            letter-spacing: 0.25em;
+            font-family: 'Noto Serif', Georgia, serif;
+            font-weight: 400;
+            letter-spacing: 0.04em;
             text-transform: lowercase;
             margin: 0 0 2rem 0;
-            font-size: 2rem;
+            font-size: 2.4rem;
             color: #fff;
-            opacity: 0.85;
+            opacity: 0.9;
         }
 
         .tagline {
@@ -270,11 +324,12 @@
         }
 
         .section-title {
-            font-family: 'Inter', sans-serif;
-            font-weight: 200;
-            font-size: 1.4rem;
+            font-family: 'Noto Serif', Georgia, serif;
+            font-weight: 400;
+            font-style: italic;
+            font-size: 1.5rem;
             color: #fff;
-            letter-spacing: 0.12em;
+            letter-spacing: 0.01em;
             text-transform: lowercase;
             margin: 0 0 3.5rem 0;
             opacity: 0.9;
@@ -328,6 +383,45 @@
             margin: 0;
         }
 
+        /* --- The Rite: vertical stages --- */
+        .stage {
+            position: relative;
+            padding: 0 0 0 3.25rem;
+            margin: 0 0 3rem 0;
+            text-align: left;
+        }
+
+        .stage:last-child { margin-bottom: 0; }
+
+        .stage .numeral {
+            position: absolute;
+            top: 0.1rem;
+            left: 0;
+            font-family: 'Noto Serif', Georgia, serif;
+            font-style: italic;
+            font-size: 1.15rem;
+            color: var(--gold-color);
+            letter-spacing: 0.05em;
+        }
+
+        .stage h3 {
+            font-family: 'Noto Serif', Georgia, serif;
+            font-weight: 400;
+            font-style: italic;
+            font-size: 1.1rem;
+            color: #fff;
+            margin: 0 0 0.75rem 0;
+        }
+
+        .stage p {
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            font-size: 0.95rem;
+            color: #bbb;
+            line-height: 1.75;
+            margin: 0;
+        }
+
         /* --- Proof: one pull-quote --- */
         .rule {
             width: 40px;
@@ -373,7 +467,7 @@
         .contact-btn {
             text-decoration: none;
             color: var(--bg-color);
-            background-color: var(--text-color);
+            background-color: var(--gold-color);
             padding: 14px 32px;
             border-radius: 1px;
             font-weight: 600;
@@ -385,8 +479,8 @@
         }
 
         .contact-btn:hover {
-            background-color: #fff;
-            box-shadow: 0 0 25px rgba(255, 215, 0, 0.3);
+            background-color: var(--gold-bright);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.35);
             transform: translateY(-2px);
         }
 
@@ -478,13 +572,17 @@
     <!-- HERO -->
     <section class="hero">
         <div class="column">
-            <div class="profile-container anim d-1">
-                <img src="result_146456.jpeg" alt="Frederik" class="profile-pic">
-                <div class="hud-overlay">
-                    <div class="hud-text">
-                        &gt; LOC: BERLIN<br>
-                        &gt; BPM: 145<br>
-                        &gt; STATUS: TAKING CLIENTS
+            <div class="profile-frame anim d-1">
+                <span class="bracket-bl" aria-hidden="true"></span>
+                <span class="bracket-br" aria-hidden="true"></span>
+                <div class="profile-container">
+                    <img src="result_146456.jpeg" alt="Frederik" class="profile-pic">
+                    <div class="hud-overlay">
+                        <div class="hud-text">
+                            &gt; LOC: BERLIN<br>
+                            &gt; BPM: 145<br>
+                            &gt; STATUS: TAKING CLIENTS
+                        </div>
                     </div>
                 </div>
             </div>
@@ -537,6 +635,38 @@
                 <span class="service-index">03 // light the lantern</span>
                 <p class="service-name">Interfaces for AI products.</p>
                 <p>Prompt surfaces, streaming, feedback loops, and the edges where humans and weights meet. For teams with a working model and a UX that doesn't do it justice.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- THE RITE -->
+    <section class="beat" id="rite">
+        <div class="column">
+            <p class="marker">&gt; the rite</p>
+            <h2 class="section-title">four stages across</h2>
+
+            <div class="stage">
+                <span class="numeral">I.</span>
+                <h3>The Call</h3>
+                <p>Thirty minutes. You describe what you want to build, I ask what would kill it. Free, no commitment, no deck.</p>
+            </div>
+
+            <div class="stage">
+                <span class="numeral">II.</span>
+                <h3>The Map</h3>
+                <p>One to two weeks: scope, architecture, model choice, risks. You leave with a written plan you can execute — with me, with someone else, or alone.</p>
+            </div>
+
+            <div class="stage">
+                <span class="numeral">III.</span>
+                <h3>The Crossing</h3>
+                <p>Build mode. Fixed-scope milestones, weekly check-ins, code and weights you own from day one. No lock-in, no black boxes.</p>
+            </div>
+
+            <div class="stage">
+                <span class="numeral">IV.</span>
+                <h3>The Landing</h3>
+                <p>Handover with documentation, runbooks, and a 30-day warranty against regressions. The boat returns empty.</p>
             </div>
         </div>
     </section>
