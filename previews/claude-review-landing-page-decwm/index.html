@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Charon.cx | Frederik — Freelance AI Consulting</title>
+    <meta name="description" content="Freelance AI consulting — strategy, implementation, and interfaces that ship. Based in Berlin, working worldwide.">
+    <meta name="author" content="Frederik">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://charon.cx/">
+    <meta property="og:title" content="Charon.cx | Freelance AI Consulting">
+    <meta property="og:description" content="Safe passage across the Uncanny Valley. Strategy, implementation, and interfaces that ship.">
+    <meta property="og:image" content="https://charon.cx/result_146456.jpeg">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Charon.cx | Freelance AI Consulting">
+    <meta name="twitter:description" content="Safe passage across the Uncanny Valley. Strategy, implementation, and interfaces that ship.">
+    <meta name="twitter:image" content="https://charon.cx/result_146456.jpeg">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Noto+Serif:ital,wght@0,400;0,500;1,400;1,500&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "ProfessionalService",
+        "name": "Charon.cx",
+        "description": "Freelance AI consulting — strategy, implementation, and interfaces that ship.",
+        "url": "https://charon.cx",
+        "image": "https://charon.cx/result_146456.jpeg",
+        "areaServed": "Worldwide",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Berlin",
+            "addressCountry": "DE"
+        },
+        "founder": {
+            "@type": "Person",
+            "name": "Frederik"
+        }
+    }
+    </script>
+
+    <style>
+        /* --- Design tokens: "The Mythic Algorithm" --- */
+        :root {
+            --bg: #131313;
+            --surface-low: #1c1b1b;
+            --surface: #201f1f;
+            --surface-high: #2a2a2a;
+            --surface-highest: #353534;
+            --surface-variant: #353534;
+            --outline-variant: #424754;
+
+            --primary: #adc6ff;
+            --primary-container: #4d8eff;
+            --secondary: #e9c349;
+            --secondary-dim: #d4af37;
+            --on-secondary: #3c2f00;
+            --tertiary: #38debb;
+            --tertiary-dim: #2ab898;
+
+            --on-surface: #e5e2e1;
+            --on-surface-variant: #c2c6d6;
+            --dim: #8c909f;
+            --deep-dim: #424754;
+
+            --column: 580px;
+
+            --font-display: 'Noto Serif', Georgia, serif;
+            --font-body: 'Inter', -apple-system, sans-serif;
+            --font-label: 'Space Grotesk', 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg);
+            background-image: radial-gradient(circle at 50% 25%, #1c1b1b 0%, #131313 70%);
+            color: var(--on-surface-variant);
+            font-family: var(--font-body);
+            font-weight: 300;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+            position: relative;
+        }
+
+        ::selection {
+            background: var(--secondary);
+            color: var(--on-secondary);
+        }
+
+        /* --- Fog (River Styx) --- */
+        .fog-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 30vh;
+            z-index: 1;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .fog-layer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 200%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(28,27,27,0.85) 0%, transparent 100%);
+            opacity: 0.55;
+            animation: drift 20s linear infinite;
+            mask-image: linear-gradient(to right, transparent, black 50%, transparent);
+        }
+
+        .fog-layer:nth-child(2) {
+            animation-duration: 35s;
+            animation-direction: reverse;
+            opacity: 0.3;
+            bottom: -20px;
+        }
+
+        @keyframes drift {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* --- Column --- */
+        .column {
+            max-width: var(--column);
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* --- Profile frame (ghost brackets, no opaque borders) --- */
+        .profile-frame {
+            position: relative;
+            width: 168px;
+            height: 168px;
+            margin: 0 auto 3rem auto;
+        }
+
+        .profile-frame::before,
+        .profile-frame::after,
+        .profile-frame > .bracket-bl,
+        .profile-frame > .bracket-br {
+            content: '';
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            border-color: var(--secondary);
+            opacity: 0.5;
+            transition: opacity 0.4s ease;
+        }
+
+        .profile-frame::before {
+            top: 0; left: 0;
+            border-top: 1px solid;
+            border-left: 1px solid;
+        }
+
+        .profile-frame::after {
+            top: 0; right: 0;
+            border-top: 1px solid;
+            border-right: 1px solid;
+        }
+
+        .profile-frame .bracket-bl {
+            bottom: 0; left: 0;
+            border-bottom: 1px solid var(--secondary);
+            border-left: 1px solid var(--secondary);
+        }
+
+        .profile-frame .bracket-br {
+            bottom: 0; right: 0;
+            border-bottom: 1px solid var(--secondary);
+            border-right: 1px solid var(--secondary);
+        }
+
+        .profile-frame:hover::before,
+        .profile-frame:hover::after,
+        .profile-frame:hover .bracket-bl,
+        .profile-frame:hover .bracket-br {
+            opacity: 0.9;
+        }
+
+        .profile-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            overflow: hidden;
+            outline: 1px solid rgba(66, 71, 84, 0.25); /* ghost border */
+            background: #000;
+            transition: outline-color 0.3s ease;
+        }
+
+        .profile-pic {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%);
+            transition: all 0.4s ease;
+            transform: scale(1.05);
+        }
+
+        .hud-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(19, 19, 19, 0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            backdrop-filter: blur(6px);
+        }
+
+        .hud-text {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            color: var(--tertiary);
+            text-align: left;
+            line-height: 1.8;
+            letter-spacing: -0.3px;
+        }
+
+        .profile-container:hover {
+            outline-color: rgba(56, 222, 187, 0.35);
+            box-shadow: 0 0 30px rgba(56, 222, 187, 0.08);
+        }
+
+        .profile-container:hover .profile-pic {
+            transform: scale(1);
+            filter: grayscale(100%) blur(3px);
+        }
+
+        .profile-container:hover .hud-overlay { opacity: 1; }
+
+        /* --- Typography --- */
+        .wordmark {
+            font-family: var(--font-label);
+            font-weight: 500;
+            font-size: 0.72rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--dim);
+            margin: 0 0 0.75rem 0;
+        }
+
+        .wordmark .dot { color: var(--secondary); }
+
+        .tagline {
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            color: var(--dim);
+            margin: 0 0 3.5rem 0;
+            line-height: 1.8;
+        }
+
+        /* --- The hook: editorial display statement --- */
+        .hook {
+            margin: 0 0 2.5rem 0;
+        }
+
+        .hook-display {
+            font-family: var(--font-display);
+            font-weight: 400;
+            font-size: 2.1rem;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            color: var(--on-surface);
+            margin: 0 0 1.75rem 0;
+        }
+
+        .hook-display em {
+            font-style: italic;
+            font-weight: 500;
+            color: var(--on-surface);
+        }
+
+        .hook-sub {
+            font-family: var(--font-display);
+            font-style: italic;
+            font-weight: 400;
+            font-size: 1.18rem;
+            line-height: 1.55;
+            color: var(--on-surface-variant);
+            margin: 0;
+        }
+
+        .hook-sub em {
+            font-style: italic;
+            color: var(--tertiary);
+            opacity: 0.85;
+        }
+
+        /* --- Scroll hint --- */
+        .scroll-hint {
+            font-family: var(--font-label);
+            font-size: 0.68rem;
+            color: var(--dim);
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 4rem;
+            padding: 0.5rem 0;
+            transition: color 0.3s ease;
+            opacity: 0.75;
+        }
+
+        .scroll-hint:hover { color: var(--tertiary); }
+
+        .scroll-hint .chevron {
+            display: block;
+            margin-top: 10px;
+            animation: bob 2.4s ease-in-out infinite;
+        }
+
+        @keyframes bob {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(4px); }
+        }
+
+        /* --- Section marker (Space Grotesk label) --- */
+        .marker {
+            font-family: var(--font-label);
+            font-weight: 500;
+            font-size: 0.68rem;
+            color: var(--tertiary);
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            margin: 0 0 1.5rem 0;
+            opacity: 0.8;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-weight: 400;
+            font-style: italic;
+            font-size: 1.75rem;
+            color: var(--on-surface);
+            letter-spacing: -0.015em;
+            margin: 0 0 3.5rem 0;
+        }
+
+        /* --- Sections --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 40px 0 60px;
+        }
+
+        .hero .column {
+            text-align: center;
+        }
+
+        section.beat {
+            padding: 6rem 0;
+        }
+
+        /* Tonal sectioning — no borders, background shift only */
+        section.beat.shifted {
+            background: var(--surface-low);
+        }
+
+        /* --- Services as prose beats --- */
+        .service {
+            margin: 0 0 3rem 0;
+            text-align: left;
+        }
+
+        .service:last-child { margin-bottom: 0; }
+
+        .service-index {
+            font-family: var(--font-label);
+            font-weight: 500;
+            font-size: 0.68rem;
+            color: var(--tertiary);
+            letter-spacing: 0.24em;
+            text-transform: uppercase;
+            margin: 0 0 0.75rem 0;
+            display: block;
+            opacity: 0.9;
+        }
+
+        .service-name {
+            font-family: var(--font-display);
+            font-weight: 500;
+            font-size: 1.15rem;
+            color: var(--on-surface);
+            margin: 0 0 0.75rem 0;
+            letter-spacing: -0.01em;
+        }
+
+        .service p {
+            font-family: var(--font-body);
+            font-weight: 300;
+            font-size: 0.95rem;
+            color: var(--on-surface-variant);
+            line-height: 1.75;
+            margin: 0;
+        }
+
+        /* --- The Rite: vertical stages --- */
+        .stage {
+            position: relative;
+            padding: 0 0 0 3.25rem;
+            margin: 0 0 3rem 0;
+            text-align: left;
+        }
+
+        .stage:last-child { margin-bottom: 0; }
+
+        .stage .numeral {
+            position: absolute;
+            top: 0.1rem;
+            left: 0;
+            font-family: var(--font-display);
+            font-style: italic;
+            font-weight: 400;
+            font-size: 1.2rem;
+            color: var(--on-surface-variant);
+            letter-spacing: 0.05em;
+            opacity: 0.7;
+        }
+
+        .stage h3 {
+            font-family: var(--font-display);
+            font-weight: 400;
+            font-style: italic;
+            font-size: 1.15rem;
+            color: var(--on-surface);
+            margin: 0 0 0.75rem 0;
+            letter-spacing: -0.01em;
+        }
+
+        .stage p {
+            font-family: var(--font-body);
+            font-weight: 300;
+            font-size: 0.95rem;
+            color: var(--on-surface-variant);
+            line-height: 1.75;
+            margin: 0;
+        }
+
+        /* --- CTA --- */
+        .cta-line {
+            font-family: var(--font-display);
+            font-style: italic;
+            font-weight: 400;
+            font-size: 1.25rem;
+            color: var(--on-surface);
+            margin: 0 0 2.25rem 0;
+            line-height: 1.55;
+            letter-spacing: -0.01em;
+        }
+
+        .contact-btn {
+            text-decoration: none;
+            color: var(--on-secondary);
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-dim) 100%);
+            padding: 15px 34px;
+            border-radius: 2px;
+            font-family: var(--font-label);
+            font-weight: 600;
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.22em;
+            transition: all 0.4s ease;
+            display: inline-block;
+        }
+
+        .contact-btn:hover {
+            background: linear-gradient(135deg, #f3d156 0%, var(--secondary) 100%);
+            box-shadow: 0 8px 30px rgba(233, 195, 73, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .contact-btn:focus-visible {
+            outline: 2px solid var(--tertiary);
+            outline-offset: 4px;
+        }
+
+        .cta-micro {
+            font-family: var(--font-label);
+            font-weight: 400;
+            font-size: 0.68rem;
+            color: var(--dim);
+            margin: 0;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            line-height: 1.7;
+        }
+
+        .cta-micro-above { margin: 0 0 1.5rem 0; }
+        .cta-micro-below { margin: 1.5rem 0 0 0; text-transform: none; letter-spacing: 0.08em; }
+
+        .cta-secondary {
+            color: var(--on-surface-variant);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(56, 222, 187, 0.3);
+            transition: color 0.3s ease, border-color 0.3s ease;
+            padding-bottom: 1px;
+        }
+
+        .cta-secondary:hover {
+            color: var(--tertiary);
+            border-bottom-color: var(--tertiary);
+        }
+
+        /* --- Footer --- */
+        .footer {
+            font-family: var(--font-label);
+            font-weight: 400;
+            font-size: 0.68rem;
+            color: var(--dim);
+            padding: 4rem 0 3rem;
+            position: relative;
+            z-index: 10;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+        }
+
+        .footer a {
+            color: var(--dim);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover { color: var(--tertiary); }
+
+        .footer .separator {
+            color: var(--deep-dim);
+            margin: 0 10px;
+            opacity: 0.5;
+        }
+
+        .footer .meta {
+            color: var(--dim);
+            font-size: 0.6rem;
+            margin-top: 1rem;
+            letter-spacing: 0.24em;
+            opacity: 0.75;
+        }
+
+        /* --- Animations --- */
+        .anim { opacity: 0; transform: translateY(15px); animation: fadeUp 0.8s ease forwards; }
+        .d-1 { animation-delay: 0.1s; }
+        .d-2 { animation-delay: 0.2s; }
+        .d-3 { animation-delay: 0.3s; }
+        .d-4 { animation-delay: 0.45s; }
+        .d-5 { animation-delay: 0.6s; }
+        .d-6 { animation-delay: 0.75s; }
+
+        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+        @media (prefers-reduced-motion: reduce) {
+            .fog-layer, .scroll-hint .chevron { animation: none; }
+            .anim { animation: none; opacity: 1; transform: none; }
+            .contact-btn, .profile-pic { transition: none; }
+        }
+
+        @media (max-width: 600px) {
+            .hook-display { font-size: 1.65rem; }
+            .hook-sub { font-size: 1.02rem; }
+            .section-title { font-size: 1.35rem; }
+            .cta-line { font-size: 1.1rem; }
+            section.beat { padding: 4.5rem 0; }
+            .service { margin-bottom: 2.75rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="fog-container" aria-hidden="true">
+        <div class="fog-layer"></div>
+        <div class="fog-layer"></div>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="column">
+            <div class="profile-frame anim d-1">
+                <span class="bracket-bl" aria-hidden="true"></span>
+                <span class="bracket-br" aria-hidden="true"></span>
+                <div class="profile-container">
+                    <img src="result_146456.jpeg" alt="Frederik" class="profile-pic">
+                    <div class="hud-overlay">
+                        <div class="hud-text">
+                            &gt; LOC: BERLIN<br>
+                            &gt; BPM: 145<br>
+                            &gt; STATUS: TAKING CLIENTS
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <p class="wordmark anim d-2">charon<span class="dot">.</span>cx</p>
+
+            <p class="tagline anim d-3">
+                AI whisperer // calisthenics // techno // gaming
+            </p>
+
+            <div class="hook anim d-4">
+                <p class="hook-display">
+                    Safe passage across the <em>Uncanny Valley</em>.
+                </p>
+                <p class="hook-sub">
+                    Because unoptimized <em>weights</em> will drag you under.
+                </p>
+            </div>
+
+            <a href="#passage" class="scroll-hint anim d-5" aria-label="Scroll to services">
+                Continue
+                <span class="chevron" aria-hidden="true">↓</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="beat shifted" id="passage">
+        <div class="column">
+            <p class="marker">The Passage</p>
+            <h2 class="section-title">three ways across</h2>
+
+            <div class="service">
+                <span class="service-index">01 — Chart the Crossing</span>
+                <p class="service-name">Strategy &amp; advisory.</p>
+                <p>Roadmaps before code. Build-vs-buy, model selection, workshops, technical due diligence. For teams who need to know what to build before they burn a quarter building it.</p>
+            </div>
+
+            <div class="service">
+                <span class="service-index">02 — Row the Boat</span>
+                <p class="service-name">Implementation.</p>
+                <p>RAG, agents, fine-tuning, evals, API integrations — and the plumbing that keeps them standing in production. For teams that have the map and need someone on the oars.</p>
+            </div>
+
+            <div class="service">
+                <span class="service-index">03 — Light the Lantern</span>
+                <p class="service-name">Interfaces for AI products.</p>
+                <p>Prompt surfaces, streaming, feedback loops, and the edges where humans and weights meet. For teams with a working model and a UX that doesn't do it justice.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- THE RITE -->
+    <section class="beat" id="rite">
+        <div class="column">
+            <p class="marker">The Rite</p>
+            <h2 class="section-title">four stages across</h2>
+
+            <div class="stage">
+                <span class="numeral">I.</span>
+                <h3>The Call</h3>
+                <p>Thirty minutes. You describe what you want to build, I ask what would kill it. Free, no commitment, no deck.</p>
+            </div>
+
+            <div class="stage">
+                <span class="numeral">II.</span>
+                <h3>The Map</h3>
+                <p>One to two weeks: scope, architecture, model choice, risks. You leave with a written plan you can execute — with me, with someone else, or alone.</p>
+            </div>
+
+            <div class="stage">
+                <span class="numeral">III.</span>
+                <h3>The Voyage</h3>
+                <p>Build mode. Fixed-scope milestones, weekly check-ins, code and weights you own from day one. No lock-in, no black boxes.</p>
+            </div>
+
+            <div class="stage">
+                <span class="numeral">IV.</span>
+                <h3>The Landing</h3>
+                <p>Walkthrough, a short overlap, and I step off. The boat returns empty.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- MANIFEST -->
+    <section class="beat shifted" id="manifest">
+        <div class="column">
+            <p class="marker">The Manifest</p>
+            <h2 class="section-title">what's true of every crossing</h2>
+
+            <div class="service">
+                <span class="service-index">A — You own it</span>
+                <p class="service-name">Code, weights, prompts, and docs.</p>
+                <p>Yours from day one. No vendor glue between you and production, no layer you can't swap, no renewal clause on the artifacts you paid to build.</p>
+            </div>
+
+            <div class="service">
+                <span class="service-index">B — You can read it</span>
+                <p class="service-name">Decisions in plain language.</p>
+                <p>Architecture someone else can operate, evals you can run yourself, and the trade-offs written down. No black boxes, no "trust me," nothing that needs me in the room to make sense.</p>
+            </div>
+
+            <div class="service">
+                <span class="service-index">C — You can leave</span>
+                <p class="service-name">Exit, not lock-in.</p>
+                <p>Continue with your team, hire someone else, or pause — your call. Thirty-day regression warranty after handover, then the project is fully yours.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="beat" id="obol">
+        <div class="column">
+            <p class="marker">The Obol</p>
+            <p class="cta-line">The ferryman accepts coin.<br>Bring yours and let's talk.</p>
+
+            <p class="cta-micro cta-micro-above">
+                Free 30-min intro call · Response within 24 hours
+            </p>
+
+            <!-- TODO: Replace href with a Cal.com or Calendly link when ready. -->
+            <a href="mailto:frederik@charon.cx?subject=Intro%20call" class="contact-btn">
+                Start with the Call
+            </a>
+
+            <p class="cta-micro cta-micro-below">
+                or <a href="mailto:frederik@charon.cx" class="cta-secondary">send an email</a>
+            </p>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="column">
+            <!-- TODO: Replace # with your LinkedIn and GitHub URLs -->
+            <a href="#" target="_blank" rel="noopener">LinkedIn</a>
+            <span class="separator">·</span>
+            <a href="#" target="_blank" rel="noopener">GitHub</a>
+            <span class="separator">·</span>
+            <a href="mailto:frederik@charon.cx">Email</a>
+            <span class="separator">·</span>
+            <a href="https://www.instagram.com/insta.linkin" target="_blank" rel="noopener">Instagram</a>
+            <div class="meta">
+                Berlin · worldwide · EN / DE &nbsp;·&nbsp; © 2025 Charon.cx
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
