@@ -36,5 +36,6 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
           publish_dir: ./output
-          force_orphan: true
+          keep_files: true
           cname: charon.cx
+          commit_message: "Deploy main"

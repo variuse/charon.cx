@@ -1,0 +1,90 @@
+name: Deploy branch preview
+
+# Publishes every non-main branch into gh-pages under /previews/<slug>/
+# so each branch can be viewed at https://charon.cx/previews/<slug>/
+# alongside the production site.
+#
+# Cleanup: when a branch is deleted, its preview directory is removed
+# from gh-pages in a follow-up commit.
+
+on:
+  push:
+    branches-ignore:
+      - main
+      - gh-pages
+  delete:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gh-pages-previews
+  cancel-in-progress: false
+
+jobs:
+  deploy-preview:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Compute slug
+        id: slug
+        run: |
+          slug=$(echo "${{ github.ref_name }}" | tr '/' '-' | tr '[:upper:]' '[:lower:]')
+          echo "value=$slug" >> "$GITHUB_OUTPUT"
+
+      - name: Assemble output
+        run: |
+          mkdir -p ./output
+          cp index.html ./output/
+          cp -r assets/ ./output/assets/
+          cp insta.png ./output/
+          cp result_146456.jpeg ./output/
+
+      - name: Deploy preview to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: ./output
+          destination_dir: previews/${{ steps.slug.outputs.value }}
+          keep_files: true
+          commit_message: "Deploy preview: ${{ github.ref_name }}"
+
+      - name: Print preview URL
+        run: |
+          {
+            echo "## Preview deployed"
+            echo ""
+            echo "**Branch:** \`${{ github.ref_name }}\`"
+            echo ""
+            echo "**URL:** https://charon.cx/previews/${{ steps.slug.outputs.value }}/"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  cleanup-preview:
+    if: github.event_name == 'delete' && github.event.ref_type == 'branch' && github.event.ref != 'main' && github.event.ref != 'gh-pages'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+
+      - name: Compute slug
+        id: slug
+        run: |
+          slug=$(echo "${{ github.event.ref }}" | tr '/' '-' | tr '[:upper:]' '[:lower:]')
+          echo "value=$slug" >> "$GITHUB_OUTPUT"
+
+      - name: Remove preview directory
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          target="previews/${{ steps.slug.outputs.value }}"
+          if [ -d "$target" ]; then
+            git rm -r "$target"
+            git commit -m "Cleanup preview: ${{ github.event.ref }}"
+            git push
+          else
+            echo "No preview directory at $target — nothing to clean."
+          fi
