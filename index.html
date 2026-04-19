@@ -271,7 +271,6 @@
         /* --- The hook: editorial display statement --- */
         .hook {
             margin: 0 0 2.5rem 0;
-            text-align: left;
         }
 
         .hook-display {
@@ -298,8 +297,6 @@
             line-height: 1.55;
             color: var(--on-surface-variant);
             margin: 0;
-            padding-left: 1.25rem;
-            border-left: 1px solid rgba(66, 71, 84, 0.3); /* ghost marker */
         }
 
         .hook-sub em {
@@ -308,29 +305,11 @@
             opacity: 0.85;
         }
 
-        .value-prop {
-            font-family: var(--font-label);
-            font-weight: 500;
-            font-size: 0.72rem;
-            color: var(--dim);
-            margin: 0 0 0 0;
-            line-height: 1.8;
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-            text-align: left;
-        }
-
-        .value-prop .pipe {
-            color: var(--secondary);
-            opacity: 0.7;
-            margin: 0 0.4rem;
-        }
-
         /* --- Scroll hint --- */
         .scroll-hint {
             font-family: var(--font-label);
             font-size: 0.68rem;
-            color: var(--deep-dim);
+            color: var(--dim);
             letter-spacing: 0.28em;
             text-transform: uppercase;
             text-decoration: none;
@@ -338,6 +317,7 @@
             margin-top: 4rem;
             padding: 0.5rem 0;
             transition: color 0.3s ease;
+            opacity: 0.75;
         }
 
         .scroll-hint:hover { color: var(--tertiary); }
@@ -384,7 +364,7 @@
         }
 
         .hero .column {
-            text-align: left;
+            text-align: center;
         }
 
         section.beat {
@@ -450,10 +430,11 @@
             left: 0;
             font-family: var(--font-display);
             font-style: italic;
-            font-weight: 500;
+            font-weight: 400;
             font-size: 1.2rem;
-            color: var(--secondary);
+            color: var(--on-surface-variant);
             letter-spacing: 0.05em;
+            opacity: 0.7;
         }
 
         .stage h3 {
@@ -474,34 +455,6 @@
             line-height: 1.75;
             margin: 0;
         }
-
-        /* --- Proof: single pull-quote, no rules --- */
-        .pull-quote {
-            font-family: var(--font-display);
-            font-style: italic;
-            font-weight: 400;
-            font-size: 1.25rem;
-            color: var(--on-surface);
-            line-height: 1.55;
-            margin: 0 auto 1.5rem;
-            max-width: 520px;
-            letter-spacing: -0.01em;
-        }
-
-        .pull-quote::before { content: '"'; color: var(--secondary); margin-right: 2px; opacity: 0.7; }
-        .pull-quote::after { content: '"'; color: var(--secondary); margin-left: 2px; opacity: 0.7; }
-
-        .attribution {
-            font-family: var(--font-label);
-            font-weight: 500;
-            font-size: 0.68rem;
-            color: var(--dim);
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-            margin: 0;
-        }
-
-        .souls-wrap { text-align: center; }
 
         /* --- CTA --- */
         .cta-line {
@@ -546,11 +499,14 @@
             font-weight: 400;
             font-size: 0.68rem;
             color: var(--dim);
-            margin-top: 1.5rem;
+            margin: 0;
             letter-spacing: 0.18em;
             text-transform: uppercase;
             line-height: 1.7;
         }
+
+        .cta-micro-above { margin: 0 0 1.5rem 0; }
+        .cta-micro-below { margin: 1.5rem 0 0 0; text-transform: none; letter-spacing: 0.08em; }
 
         .cta-secondary {
             color: var(--on-surface-variant);
@@ -570,7 +526,7 @@
             font-family: var(--font-label);
             font-weight: 400;
             font-size: 0.68rem;
-            color: var(--deep-dim);
+            color: var(--dim);
             padding: 4rem 0 3rem;
             position: relative;
             z-index: 10;
@@ -593,11 +549,11 @@
         }
 
         .footer .meta {
-            color: var(--deep-dim);
+            color: var(--dim);
             font-size: 0.6rem;
             margin-top: 1rem;
             letter-spacing: 0.24em;
-            opacity: 0.8;
+            opacity: 0.75;
         }
 
         /* --- Animations --- */
@@ -621,7 +577,7 @@
             .hook-display { font-size: 1.65rem; }
             .hook-sub { font-size: 0.95rem; }
             .section-title { font-size: 1.35rem; }
-            .pull-quote, .cta-line { font-size: 1.1rem; }
+            .cta-line { font-size: 1.1rem; }
             section.beat { padding: 4.5rem 0; }
             .service { margin-bottom: 2.75rem; }
         }
@@ -655,8 +611,7 @@
             <p class="wordmark anim d-2">charon<span class="dot">.</span>cx</p>
 
             <p class="tagline anim d-3">
-                AI whisperer // calisthenics // techno // gaming<br>
-                UI/UX development &amp; other nerdy stuff...
+                AI whisperer // calisthenics // techno // gaming
             </p>
 
             <div class="hook anim d-4">
@@ -668,11 +623,7 @@
                 </p>
             </div>
 
-            <p class="value-prop anim d-5">
-                Strategy <span class="pipe">/</span> Implementation <span class="pipe">/</span> Interfaces
-            </p>
-
-            <a href="#passage" class="scroll-hint anim d-6" aria-label="Scroll to services">
+            <a href="#passage" class="scroll-hint anim d-5" aria-label="Scroll to services">
                 Continue
                 <span class="chevron" aria-hidden="true">↓</span>
             </a>
@@ -725,7 +676,7 @@
 
             <div class="stage">
                 <span class="numeral">III.</span>
-                <h3>The Crossing</h3>
+                <h3>The Voyage</h3>
                 <p>Build mode. Fixed-scope milestones, weekly check-ins, code and weights you own from day one. No lock-in, no black boxes.</p>
             </div>
 
@@ -737,16 +688,29 @@
         </div>
     </section>
 
-    <!-- PROOF -->
-    <section class="beat shifted" id="souls">
-        <div class="column souls-wrap">
-            <p class="marker">Souls Ferried</p>
+    <!-- CARGO -->
+    <section class="beat shifted" id="cargo">
+        <div class="column">
+            <p class="marker">The Cargo</p>
+            <h2 class="section-title">what you leave with</h2>
 
-            <!-- TODO: Replace with a real testimonial, cleared with the client. -->
-            <p class="pull-quote">
-                A short, specific quote about the work or the outcome. One or two lines is enough.
-            </p>
-            <p class="attribution">Name — Title, Company</p>
+            <div class="service">
+                <span class="service-index">A — A written map</span>
+                <p class="service-name">Plan you can execute.</p>
+                <p>Scope, architecture, model choice, risks, costs. Plain language a PM can read and an engineer can build from. Yours to keep whether we continue together or not.</p>
+            </div>
+
+            <div class="service">
+                <span class="service-index">B — Code you own</span>
+                <p class="service-name">Working system, not a demo.</p>
+                <p>Repo, tests, evals, deploy scripts, and the weights or prompts that make it go. No lock-in, no hidden vendor layers, no proprietary glue between you and production.</p>
+            </div>
+
+            <div class="service">
+                <span class="service-index">C — A runbook and a warranty</span>
+                <p class="service-name">Handover that holds up.</p>
+                <p>Documentation your team can operate from, a 30-day warranty against regressions, and a line back to me when something shifts. The boat returns empty.</p>
+            </div>
         </div>
     </section>
 
@@ -756,13 +720,16 @@
             <p class="marker">The Obol</p>
             <p class="cta-line">The ferryman accepts coin.<br>Bring yours and let's talk.</p>
 
+            <p class="cta-micro cta-micro-above">
+                Free 30-min intro call · Response within 24 hours
+            </p>
+
             <!-- TODO: Replace href with a Cal.com or Calendly link when ready. -->
             <a href="mailto:frederik@charon.cx?subject=Intro%20call" class="contact-btn">
-                Ping the Ferryman
+                Start with the Call
             </a>
 
-            <p class="cta-micro">
-                Free 30-min intro call · Response within 24 hours<br>
+            <p class="cta-micro cta-micro-below">
                 or <a href="mailto:frederik@charon.cx" class="cta-secondary">send an email</a>
             </p>
         </div>
