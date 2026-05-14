@@ -21,15 +21,13 @@ A personal website (`charon.cx`) with a Charon/River Styx mythological theme, pl
 ## Running locally
 
 Open HTML files directly in a browser — no server or build step needed:
-- `index.html` — main site (fog animation, HUD profile, Obol contact button)
+- `index.html` — main site (landing page)
 
 ## Architecture
 
-**Main site (`index.html`):** Dark cyberpunk/mythological aesthetic. Core visual elements are a multi-layer animated fog effect (River Styx), a circular HUD-style profile container with a hover overlay, and a contact button named "Obol" (the Charon coin metaphor). Fonts loaded from Google Fonts (Inter, JetBrains Mono).
+**Main site (`index.html`):** AI consulting landing page using the Mythic Algorithm design system — dark background, gold accent (`#C9A84C`), serif headlines (Playfair Display), mono body text (JetBrains Mono). Sections: hero, Manifest (invariants/principles), Rite (engagement model), Cargo (deliverables), contact. All styles are inline in the `<style>` block — single source of truth. (`style.css` was removed in the v6 redesign.)
 
-Note: `index.html` contains its own inline `<style>` block — this is the single source of truth for styles. (`style.css` was removed in the v6 redesign.)
-
-**Assets at repo root:** `insta.png`, `result_146456.jpeg` (profile photo) — these are web assets, not source files, kept at root to match the HTML's relative paths.
+**Assets at repo root:** `insta.png`, `result_146456.jpeg` (profile photo) — kept at root to match the HTML's relative paths.
 
 **Logseq (`logseq/`):** Local-first note-taking config. `logseq/config.edn` is the main config — Markdown format, NOW/LATER workflow, date format `YYYY_MM_DD`. Journals live in `journals/`, pages in `pages/`. These files are managed by Logseq itself; edits outside Logseq may conflict with its cache.
 
@@ -38,4 +36,4 @@ Note: `index.html` contains its own inline `<style>` block — this is the singl
 - Design language: mythological metaphors (Charon, Styx, Obol) — keep naming consistent with this theme when adding elements.
 - CSS variables defined at `:root` in the inline `<style>` hold the color palette; use them rather than hardcoded values.
 - Logseq bak/recycle dirs are gitignored — don't commit them.
-- Repo is public (required for GitHub Pages on free plan).
+- Repo is public.
