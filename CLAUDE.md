@@ -8,14 +8,13 @@ A personal website (`charon.cx`) with a Charon/River Styx mythological theme, pl
 
 ## Hosting & Deployment
 
-**GitHub Pages** — deployed via `.github/workflows/deploy.yml` on every push to `main`.
-- Source branch: `gh-pages` (written by the workflow, don't edit directly)
-- Custom domain: `charon.cx` (CNAME file managed by the workflow)
-- HTTPS enforced
-- The workflow copies `index.html`, `style.css`, `assets/`, `insta.png`, `result_146456.jpeg` to an output folder and deploys that — add any new web assets here.
-- When migrating to React/Vite: uncomment the build steps in the workflow and change `publish_dir` to `./dist`.
+**Vercel** — deployed automatically on every push to `main` via Vercel's GitHub integration.
+- Project: `variuses-projects/charon-cx`
+- Dashboard: https://vercel.com/variuses-projects/charon-cx
+- No workflow file needed — Vercel detects pushes via GitHub app.
+- Static files served directly from repo root (`index.html`, `assets/`, `insta.png`, `result_146456.jpeg`).
 
-**DNS** — managed on Porkbun. Apex A records point to GitHub Pages IPs (185.199.108–111.153). `www` CNAME → `variuse.github.io`. MX/SPF/DKIM/DMARC records intact for email forwarding.
+**DNS** — managed on Porkbun. Apex A record → `76.76.21.21` (Vercel). `www` CNAME → `cname.vercel-dns.com`. MX/SPF/DKIM/DMARC records intact for email forwarding.
 
 **FTP credentials** (legacy Porkbun static hosting — can be cancelled): see `.vscode/sftp.json` for host/user. Password in Porkbun dashboard under Hosting → Manage.
 
@@ -28,7 +27,7 @@ Open HTML files directly in a browser — no server or build step needed:
 
 **Main site (`index.html`):** Dark cyberpunk/mythological aesthetic. Core visual elements are a multi-layer animated fog effect (River Styx), a circular HUD-style profile container with a hover overlay, and a contact button named "Obol" (the Charon coin metaphor). Fonts loaded from Google Fonts (Inter, JetBrains Mono).
 
-Note: `index.html` contains its own inline `<style>` block — `style.css` in the repo root is a separate, slightly diverged copy. The inline styles are what the live site uses. If refactoring, reconcile the two before removing either.
+Note: `index.html` contains its own inline `<style>` block — this is the single source of truth for styles. (`style.css` was removed in the v6 redesign.)
 
 **Assets at repo root:** `insta.png`, `result_146456.jpeg` (profile photo) — these are web assets, not source files, kept at root to match the HTML's relative paths.
 
